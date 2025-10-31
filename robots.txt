@@ -1,0 +1,16 @@
+# robots.txt for bkdazs.github.io
+# AI Engineering Leader & Finance AI Architect Portfolio
+
+User-agent: *
+Allow: /
+
+# Prioritize important pages
+Allow: /index.html
+Allow: /personal/
+Allow: /vendor/
+
+# Sitemap location
+Sitemap: https://bkdazs.github.io/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
