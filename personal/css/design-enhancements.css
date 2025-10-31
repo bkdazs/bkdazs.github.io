@@ -1,0 +1,409 @@
+/* ===================================
+   DESIGN ENHANCEMENTS & ANIMATIONS
+   Portfolio: Bijay Das
+   Date: 2025-10-31
+   UI/UX Magic & Visual Excellence
+====================================== */
+
+/* ========== ANIMATIONS ========== */
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== HEADER/LOGO FIX ========== */
+
+/* Hide sidebar completely for single-page scroll design */
+.header-left {
+    display: none !important;
+}
+
+/* Full width layout */
+.main-left {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+}
+
+/* ========== BUTTON HOVER EFFECTS ========== */
+
+/* CTA Buttons - Single line on bigger screens */
+@media (min-width: 768px) {
+    .cta-buttons-container {
+        flex-wrap: nowrap !important;
+    }
+    
+    .cta-button {
+        white-space: nowrap !important;
+    }
+}
+
+/* Hover effects for CTA buttons */
+a[href="#contact"].pt-trigger:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6) !important;
+}
+
+a[href="#portfolio"].pt-trigger:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5) !important;
+}
+
+a[href*="Resume"]:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    transform: translateY(-3px) scale(1.05) !important;
+    box-shadow: 0 10px 35px rgba(102, 126, 234, 0.7) !important;
+}
+
+/* ========== CARD ENHANCEMENTS ========== */
+
+.bg-white.border.rounded {
+    transition: all 0.3s ease !important;
+    border: 1px solid #e8e8e8 !important;
+}
+
+.bg-white.border.rounded:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12) !important;
+    border-color: #667eea !important;
+}
+
+/* ========== SECTION TRANSITIONS ========== */
+
+.pt-page {
+    animation: fade-in-up 0.6s ease-out;
+}
+
+/* ========== GRADIENT TEXT ENHANCEMENTS ========== */
+
+[style*="background: linear-gradient"][style*="-webkit-background-clip: text"] {
+    background-size: 200% 200% !important;
+    animation: gradient-shift 3s ease infinite !important;
+}
+
+/* ========== SKILL LOGOS HOVER ========== */
+
+.cbp-item {
+    transition: all 0.3s ease !important;
+}
+
+.cbp-item:hover {
+    transform: scale(1.1) !important;
+    z-index: 10 !important;
+}
+
+.cbp-item img {
+    transition: all 0.3s ease !important;
+    filter: grayscale(0%) !important;
+}
+
+.cbp-item:hover img {
+    filter: grayscale(0%) drop-shadow(0 5px 15px rgba(102, 126, 234, 0.4)) !important;
+}
+
+/* ========== TESTIMONIAL ENHANCEMENTS ========== */
+
+.client-box {
+    background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%) !important;
+    border: 2px solid #e8e8e8 !important;
+    border-radius: 15px !important;
+    padding: 30px !important;
+    transition: all 0.3s ease !important;
+}
+
+.client-box:hover {
+    border-color: #667eea !important;
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.15) !important;
+}
+
+/* ========== PROGRESS BAR ANIMATIONS ========== */
+
+.progress-bar {
+    animation: progress-fill 1.5s ease-out !important;
+}
+
+@keyframes progress-fill {
+    from {
+        width: 0 !important;
+    }
+}
+
+/* ========== SERVICE CARD ICONS ========== */
+
+.bg-white.border.rounded div[style*="font-size: 2.5rem"] {
+    transition: all 0.3s ease !important;
+}
+
+.bg-white.border.rounded:hover div[style*="font-size: 2.5rem"] {
+    transform: scale(1.2) rotate(5deg) !important;
+}
+
+/* ========== FLOATING SHAPES ANIMATION ========== */
+
+.shape-square,
+.shape-triangle,
+.shape-plus,
+.shape-circle {
+    animation: float 6s ease-in-out infinite !important;
+}
+
+.shape-triangle {
+    animation-delay: 0.5s !important;
+}
+
+.shape-plus {
+    animation-delay: 1s !important;
+}
+
+.shape-circle {
+    animation-delay: 1.5s !important;
+}
+
+/* ========== SOCIAL ICONS ENHANCEMENT ========== */
+
+.social-icon-bg a {
+    transition: all 0.3s ease !important;
+    display: inline-block !important;
+}
+
+.social-icon-bg a:hover {
+    transform: translateY(-5px) scale(1.1) !important;
+}
+
+.social-icon-bg a[href*="linkedin"]:hover {
+    color: #0077b5 !important;
+    filter: drop-shadow(0 5px 15px rgba(0, 119, 181, 0.4)) !important;
+}
+
+.social-icon-bg a[href*="github"]:hover {
+    color: #333 !important;
+    filter: drop-shadow(0 5px 15px rgba(51, 51, 51, 0.4)) !important;
+}
+
+.social-icon-bg a[href*="twitter"]:hover {
+    color: #1da1f2 !important;
+    filter: drop-shadow(0 5px 15px rgba(29, 161, 242, 0.4)) !important;
+}
+
+/* ========== BADGE TAGS ========== */
+
+span[style*="border-radius: 20px"] {
+    transition: all 0.3s ease !important;
+    cursor: default !important;
+}
+
+span[style*="border-radius: 20px"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3) !important;
+}
+
+/* ========== SCROLLBAR STYLING ========== */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+/* ========== SELECTION STYLING ========== */
+
+::selection {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+::-moz-selection {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+/* ========== GLASSMORPHISM EFFECTS ========== */
+
+.glassmorphism {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* ========== SHADOW ELEVATION SYSTEM ========== */
+
+.shadow-sm {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+.shadow-md {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+}
+
+.shadow-lg {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12) !important;
+}
+
+.shadow-xl {
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* ========== RESPONSIVE ADJUSTMENTS ========== */
+
+@media screen and (max-width: 991px) {
+    .header-left .logo {
+        padding: 20px 15px !important;
+    }
+    
+    .header-left .logo img {
+        max-width: 120px !important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    /* Disable animations on mobile for performance */
+    * {
+        animation-duration: 0s !important;
+        transition-duration: 0.2s !important;
+    }
+    
+    .header-left .logo {
+        padding: 15px 10px !important;
+        margin-bottom: 10px !important;
+    }
+    
+    .header-left .logo img {
+        max-width: 100px !important;
+    }
+}
+
+/* ========== ACCESSIBILITY ========== */
+
+a:focus,
+button:focus {
+    outline: 2px solid #667eea !important;
+    outline-offset: 2px !important;
+}
+
+/* ========== SCROLL BEHAVIOR FIX ========== */
+
+/* Smooth scrolling for single-page design */
+html {
+    overflow-x: hidden !important;
+    scroll-behavior: smooth !important;
+}
+
+body {
+    overflow-x: hidden !important;
+    position: relative !important;
+}
+
+/* Let content scroll naturally */
+.main-left {
+    overflow-x: hidden !important;
+}
+
+.pt-wrapper,
+.subpages {
+    overflow: visible !important;
+}
+
+/* Add floating "Back to Top" button */
+#back-to-top {
+    position: fixed !important;
+    bottom: 40px !important;
+    right: 40px !important;
+    z-index: 9999 !important;
+    width: 50px !important;
+    height: 50px !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4) !important;
+    transition: all 0.3s ease !important;
+    font-size: 24px !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+#back-to-top.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+#back-to-top:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6) !important;
+}
+
+/* ========== PRINT OPTIMIZATION ========== */
+
+@media print {
+    .shape-square,
+    .shape-triangle,
+    .shape-plus,
+    .shape-circle {
+        display: none !important;
+    }
+}
