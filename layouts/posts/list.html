@@ -1,0 +1,85 @@
+{{ define "main" }}
+<div class="posts-page">
+  <header class="page-header">
+    <h1 class="page-title">{{ .Title | default "Blog" }}</h1>
+    {{ with .Description }}
+    <p class="page-description">{{ . }}</p>
+    {{ else }}
+    <p class="page-description">Latest articles and insights on technology, finance, and everything in between.</p>
+    {{ end }}
+  </header>
+  
+  <!-- Filter by categories -->
+  {{ $categories := .Site.Taxonomies.categories }}
+  {{ if $categories }}
+  <nav class="posts-filter">
+    <a href="{{ .Site.BaseURL }}posts/" class="filter-btn {{ if not .Data.Term }}active{{ end }}">All</a>
+    {{ range $name, $taxonomy := $categories }}
+    <a href="{{ $.Site.BaseURL }}categories/{{ $name | urlize }}/" class="filter-btn">{{ $name | humanize }}</a>
+    {{ end }}
+  </nav>
+  {{ end }}
+  
+  <!-- Articles List -->
+  {{ $pages := .Pages }}
+  {{ if $pages }}
+  <section class="articles-section">
+    <div class="posts-list">
+      {{ range $pages.ByDate.Reverse }}
+      <article class="post-item {{ if not .Params.cover.image }}no-image{{ end }}">
+        {{ with .Params.cover.image }}
+        {{ if ne . "" }}
+        <div class="post-image">
+          <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy" onerror="this.parentElement.style.display='none'">
+        </div>
+        {{ end }}
+        {{ end }}
+        
+        <div class="post-content">
+          <div class="post-meta-top">
+            {{ with .Params.categories }}
+            {{ range first 1 . }}
+            <a href="{{ $.Site.BaseURL }}categories/{{ . | urlize }}/" class="post-category">{{ . }}</a>
+            {{ end }}
+            {{ end }}
+            <span class="post-date">{{ .Date.Format "Jan 2, 2006" }}</span>
+          </div>
+          
+          <h2 class="post-title">
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+          </h2>
+          
+          <p class="post-excerpt">
+            {{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 200 }}{{ end }}
+          </p>
+          
+          <div class="post-footer">
+            <div class="post-meta">
+              {{ with .Params.author }}
+              <span class="author">By {{ . }}</span>
+              {{ end }}
+              <span class="read-time">{{ .ReadingTime }} min read</span>
+            </div>
+            <a href="{{ .Permalink }}" class="read-more">
+              Read more
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12,5 19,12 12,19"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+  </section>
+  {{ else }}
+  <div class="no-posts">
+    <p>No posts found. Check back soon!</p>
+  </div>
+  {{ end }}
+  
+  <!-- Pagination -->
+  {{ template "_internal/pagination.html" . }}
+</div>
+{{ end }}

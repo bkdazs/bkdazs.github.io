@@ -1,0 +1,71 @@
+{{ define "main" }}
+<div class="list-page">
+  <!-- Page Header -->
+  <header class="page-header">
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{ with .Description }}
+    <p class="page-description">{{ . }}</p>
+    {{ end }}
+  </header>
+  
+  <!-- Content -->
+  {{ with .Content }}
+  <div class="page-content prose">
+    {{ . }}
+  </div>
+  {{ end }}
+  
+  <!-- Articles List -->
+  {{ $pages := .Pages }}
+  {{ if .IsHome }}
+    {{ $pages = where site.RegularPages "Section" "ne" "" }}
+  {{ end }}
+  
+  {{ if $pages }}
+  <section class="articles-section">
+    <div class="articles-grid">
+      {{ range $pages.ByDate.Reverse }}
+      <article class="article-card {{ if not .Params.cover.image }}no-image{{ end }}">
+        {{ with .Params.cover.image }}
+        {{ if ne . "" }}
+        <div class="card-image">
+          <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy" onerror="this.parentElement.style.display='none'">
+        </div>
+        {{ end }}
+        {{ end }}
+        
+        <div class="card-content">
+          {{ with .Params.categories }}
+          <div class="card-categories">
+            {{ range first 2 . }}
+            <span class="category-badge">{{ . }}</span>
+            {{ end }}
+          </div>
+          {{ end }}
+          
+          <h2 class="card-title">
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+          </h2>
+          
+          <p class="card-description">
+            {{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 120 }}{{ end }}
+          </p>
+          
+          <div class="card-meta">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+            <span class="meta-separator">·</span>
+            <span>{{ .ReadingTime }} min read</span>
+          </div>
+        </div>
+        
+        <a href="{{ .Permalink }}" class="card-link" aria-label="Read {{ .Title }}"></a>
+      </article>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+  
+  <!-- Pagination -->
+  {{ template "_internal/pagination.html" . }}
+</div>
+{{ end }}

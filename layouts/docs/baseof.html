@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "en" }}" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+  
+  <!-- SEO Meta -->
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta name="author" content="{{ .Site.Params.author }}">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ .Title }}">
+  <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  {{ $css := resources.Get "css/main.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.Permalink }}">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico">
+  
+  <!-- Google Analytics -->
+  {{ with .Site.Params.googleAnalyticsID }}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ . }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ . }}');
+  </script>
+  {{ end }}
+  
+  <!-- Theme Script -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('theme') || 
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body class="docs-body">
+  <!-- Header -->
+  {{ partial "header.html" . }}
+  
+  <div class="docs-layout">
+    <!-- Docs Left Sidebar - Table of Contents -->
+    {{ partial "docs-sidebar.html" . }}
+    
+    <!-- Main Content -->
+    <main class="docs-main">
+      {{ block "main" . }}{{ end }}
+    </main>
+    
+    <!-- Right Sidebar - On This Page -->
+    {{ if .IsPage }}
+    {{ if .TableOfContents }}
+    <aside class="docs-toc">
+      <div class="docs-toc-inner">
+        <h4 class="docs-toc-title">On this page</h4>
+        <nav class="docs-toc-nav">
+          {{ .TableOfContents }}
+        </nav>
+      </div>
+    </aside>
+    {{ end }}
+    {{ end }}
+  </div>
+  
+  <!-- Footer -->
+  {{ partial "footer.html" . }}
+  
+  <!-- Scripts -->
+  <script>
+    // Theme toggle
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    
+    // Mobile docs sidebar toggle
+    function toggleDocsSidebar() {
+      document.querySelector('.docs-sidebar').classList.toggle('open');
+      document.querySelector('.docs-sidebar-overlay').classList.toggle('open');
+    }
+    
+    // Auto-expand current section in sidebar
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mark active link
+      const path = window.location.pathname;
+      document.querySelectorAll('.docs-nav a').forEach(link => {
+        if (link.getAttribute('href') === path) {
+          link.classList.add('active');
+          // Expand parent details
+          let parent = link.closest('details');
+          while (parent) {
+            parent.setAttribute('open', '');
+            parent = parent.parentElement.closest('details');
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

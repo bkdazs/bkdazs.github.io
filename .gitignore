@@ -1,2 +1,22 @@
+# Hugo build output
+public/
+resources/_gen/
 
-personal/img/skills/.DS_Store
+# Dependencies
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Hugo
+.hugo_build.lock
+
+# Profile backup (keep in repo but not needed for build)
+# profile/

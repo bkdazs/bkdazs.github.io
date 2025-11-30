@@ -1,0 +1,96 @@
+<aside class="docs-sidebar">
+  <div class="docs-sidebar-inner">
+    <!-- Mobile Close Button -->
+    <button class="docs-sidebar-close" onclick="toggleDocsSidebar()" aria-label="Close sidebar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    
+    <!-- Back to Home -->
+    <a href="{{ .Site.BaseURL }}" class="docs-back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="19" y1="12" x2="5" y2="12"/>
+        <polyline points="12,19 5,12 12,5"/>
+      </svg>
+      Home
+    </a>
+    
+    <!-- Docs Title -->
+    <div class="docs-sidebar-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+      </svg>
+      Documentation
+    </div>
+    
+    <!-- Navigation Tree -->
+    <nav class="docs-nav">
+      {{ $docsSection := .Site.GetPage "section" "docs" }}
+      {{ if $docsSection }}
+        {{ template "docs-nav-recursive" (dict "Section" $docsSection "CurrentPage" . "Level" 0) }}
+      {{ end }}
+    </nav>
+  </div>
+</aside>
+
+<!-- Mobile Overlay -->
+<div class="docs-sidebar-overlay" onclick="toggleDocsSidebar()"></div>
+
+<!-- Mobile Menu Toggle -->
+<button class="docs-mobile-toggle" onclick="toggleDocsSidebar()" aria-label="Open documentation menu">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <line x1="3" y1="12" x2="21" y2="12"/>
+    <line x1="3" y1="6" x2="21" y2="6"/>
+    <line x1="3" y1="18" x2="21" y2="18"/>
+  </svg>
+  <span>Menu</span>
+</button>
+
+<!-- Recursive Navigation Template -->
+{{ define "docs-nav-recursive" }}
+  {{ $section := .Section }}
+  {{ $currentPage := .CurrentPage }}
+  {{ $level := .Level }}
+  
+  <ul class="docs-nav-list level-{{ $level }}">
+    <!-- Subsections first -->
+    {{ range $section.Sections.ByWeight }}
+      {{ $hasChildren := or (gt (len .Sections) 0) (gt (len .RegularPages) 0) }}
+      <li class="docs-nav-item {{ if $hasChildren }}has-children{{ end }}">
+        {{ if $hasChildren }}
+        <details {{ if or ($currentPage.IsDescendant .) (eq $currentPage.Permalink .Permalink) }}open{{ end }}>
+          <summary class="docs-nav-summary">
+            <svg class="docs-nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,18 15,12 9,6"/>
+            </svg>
+            <a href="{{ .Permalink }}" class="docs-nav-link {{ if eq $currentPage.Permalink .Permalink }}active{{ end }}">
+              {{ .Title }}
+            </a>
+          </summary>
+          {{ template "docs-nav-recursive" (dict "Section" . "CurrentPage" $currentPage "Level" (add $level 1)) }}
+        </details>
+        {{ else }}
+        <a href="{{ .Permalink }}" class="docs-nav-link {{ if eq $currentPage.Permalink .Permalink }}active{{ end }}">
+          {{ .Title }}
+        </a>
+        {{ end }}
+      </li>
+    {{ end }}
+    
+    <!-- Then pages in this section -->
+    {{ range $section.RegularPages.ByWeight }}
+    <li class="docs-nav-item">
+      <a href="{{ .Permalink }}" class="docs-nav-link docs-nav-page {{ if eq $currentPage.Permalink .Permalink }}active{{ end }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14,2 14,8 20,8"/>
+        </svg>
+        {{ .Title }}
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+{{ end }}
