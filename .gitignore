@@ -2,21 +2,23 @@
 public/
 resources/_gen/
 
-# Dependencies
-node_modules/
+# Editor directories
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
 
 # OS files
 .DS_Store
 Thumbs.db
 
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-
-# Hugo
+# Hugo lock file
 .hugo_build.lock
 
-# Profile backup (keep in repo but not needed for build)
-# profile/
+# Node modules (if using npm packages)
+node_modules/
+
+# Environment files
+.env
+.env.local
