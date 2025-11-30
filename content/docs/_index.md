@@ -40,6 +40,5 @@ Financial analytics, visualization, and modeling techniques.
 
 Written by **Bijay Krishna** — exploring the fascinating world where technology meets money.
 
-- [GitHub](https://github.com/bkdazs)
-- [Twitter](https://twitter.com/bkdazs)
 - [LinkedIn](https://linkedin.com/in/krishx)
+- [Twitter](https://twitter.com/bkdazs)

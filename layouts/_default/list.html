@@ -52,8 +52,8 @@
           </p>
           
           <div class="card-meta">
-            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
-            <span class="meta-separator">·</span>
+            {{ if gt .Date.Year 1 }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+            <span class="meta-separator">·</span>{{ end }}
             <span>{{ .ReadingTime }} min read</span>
           </div>
         </div>

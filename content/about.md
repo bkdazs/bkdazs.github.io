@@ -24,7 +24,6 @@ I've built investment platforms, trading systems, and payment infrastructure in 
 
 ### Connect
 
-- 🐙 [GitHub](https://github.com/bkdazs)
 - 💼 [LinkedIn](https://linkedin.com/in/krishx)
 - 🐦 [Twitter](https://twitter.com/bkdazs)
 - 📧 [bkdazs@gmail.com](mailto:bkdazs@gmail.com)

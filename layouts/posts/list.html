@@ -42,7 +42,7 @@
             <a href="{{ $.Site.BaseURL }}categories/{{ . | urlize }}/" class="post-category">{{ . }}</a>
             {{ end }}
             {{ end }}
-            <span class="post-date">{{ .Date.Format "Jan 2, 2006" }}</span>
+            {{ if gt .Date.Year 1 }}<span class="post-date">{{ .Date.Format "Jan 2, 2006" }}</span>{{ end }}
           </div>
           
           <h2 class="post-title">
