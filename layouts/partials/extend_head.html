@@ -5,7 +5,7 @@
 <link rel="apple-touch-icon" href="/favicon.svg">
 
 {{- /* Google Analytics (gtag.js) */ -}}
-{{- with site.Params.googleAnalyticsID -}}
+{{- with .Site.Params.googleAnalyticsID -}}
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ . }}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -23,12 +23,12 @@
   "@type": "Article",
   "headline": "{{ .Title }}",
   "description": "{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }}",
-  "image": {{ if .Params.cover.image }}"{{ .Params.cover.image | absURL }}"{{ else if site.Params.images }}"{{ index site.Params.images 0 | absURL }}"{{ else }}""{{ end }},
+  "image": {{ if .Params.cover.image }}"{{ .Params.cover.image | absURL }}"{{ else if .Site.Params.images }}"{{ index .Site.Params.images 0 | absURL }}"{{ else }}""{{ end }},
   "author": {
     "@type": "Person",
-    "name": "{{ with .Params.author }}{{ . }}{{ else }}{{ site.Params.author }}{{ end }}",
-    "url": "{{ site.BaseURL }}"
-    {{- with site.Params.schema.sameAs -}}
+    "name": "{{ with .Params.author }}{{ . }}{{ else }}{{ .Site.Params.author }}{{ end }}",
+    "url": "{{ .Site.BaseURL }}"
+    {{- with .Site.Params.schema.sameAs -}}
     ,"sameAs": [
       {{- range $i, $url := . -}}
       {{- if $i }},{{ end }}"{{ $url }}"
@@ -37,8 +37,8 @@
     {{- end -}}
   },
   "publisher": {
-    "@type": "{{ site.Params.schema.publisherType | default "Person" }}",
-    "name": "{{ site.Params.author }}",
+    "@type": "{{ .Site.Params.schema.publisherType | default "Person" }}",
+    "name": "{{ .Site.Params.author }}",
     "logo": {
       "@type": "ImageObject",
       "url": "{{ "/images/logo.png" | absURL }}"
@@ -63,13 +63,13 @@
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "{{ site.Title }}",
-  "description": "{{ site.Params.description }}",
-  "url": "{{ site.BaseURL }}",
+  "name": "{{ .Site.Title }}",
+  "description": "{{ .Site.Params.description }}",
+  "url": "{{ .Site.BaseURL }}",
   "author": {
     "@type": "Person",
-    "name": "{{ site.Params.author }}"
-    {{- with site.Params.schema.sameAs -}}
+    "name": "{{ .Site.Params.author }}"
+    {{- with .Site.Params.schema.sameAs -}}
     ,"sameAs": [
       {{- range $i, $url := . -}}
       {{- if $i }},{{ end }}"{{ $url }}"
@@ -79,7 +79,7 @@
   },
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "{{ site.BaseURL }}search/?q={search_term_string}",
+    "target": "{{ .Site.BaseURL }}search/?q={search_term_string}",
     "query-input": "required name=search_term_string"
   }
 }
@@ -97,7 +97,7 @@
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "{{ site.BaseURL }}"
+      "item": "{{ .Site.BaseURL }}"
     }
     {{- with .CurrentSection -}}
     ,{
@@ -119,19 +119,16 @@
 {{- end -}}
 
 {{- /* Additional Meta Tags */ -}}
-<meta name="author" content="{{ site.Params.author }}">
+<meta name="author" content="{{ .Site.Params.author }}">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="{{ .Permalink }}">
 
 {{- /* Open Graph Additional Tags */ -}}
-<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
 <meta property="og:locale" content="en_US">
-<meta property="article:author" content="{{ site.Params.author }}">
+<meta property="article:author" content="{{ .Site.Params.author }}">
 
 {{- /* Twitter Additional Tags */ -}}
-{{- with site.Params.twitter.site -}}
+{{- with .Site.Params.twitter -}}
 <meta name="twitter:site" content="{{ . }}">
-{{- end -}}
-{{- with site.Params.twitter.creator -}}
-<meta name="twitter:creator" content="{{ . }}">
 {{- end -}}
