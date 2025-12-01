@@ -7,7 +7,7 @@ pagination:
   pagerSize: 10
 
 # Enable useful features
-enableRobotsTXT: true
+enableRobotsTXT: false  # Using custom static/robots.txt
 buildDrafts: false
 buildFuture: false
 buildExpired: false
@@ -81,7 +81,7 @@ params:
   
   # Site images for SEO
   images:
-    - "/images/site-cover.png"  # Default OG image (1200x630 recommended)
+    - "/images/site-cover.svg"  # Default OG image (1200x630)
   
   # Social handles (used in templates)
   github: "bkdazs"

@@ -26,6 +26,9 @@
   <meta name="twitter:title" content="{{ .Title }}">
   <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   
+  <!-- Canonical URL -->
+  <link rel="canonical" href="{{ .Permalink }}">
+  
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,18 +39,11 @@
   <link rel="stylesheet" href="{{ $css.Permalink }}">
   
   <!-- Favicon -->
-  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.svg">
   
-  <!-- Google Analytics -->
-  {{ with .Site.Params.googleAnalyticsID }}
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ . }}"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', '{{ . }}');
-  </script>
-  {{ end }}
+  <!-- Extend Head (SEO, Schema, etc.) -->
+  {{ partial "extend_head.html" . }}
   
   <!-- Theme Script -->
   <script>
