@@ -69,7 +69,7 @@ taxonomies:
 params:
   env: production
   title: "Olox"
-  description: "Tech Meets Finance — Insights on AI, Investing, Programming, and the Future of Money"
+  description: "The Developer's Guide to Wealth — Insights on AI, Investing, Programming, and the Future of Money"
   keywords: [Olox, Technology, Finance, AI, Machine Learning, Investing, Programming, Fintech, Crypto, Trading]
   
   # ============================================

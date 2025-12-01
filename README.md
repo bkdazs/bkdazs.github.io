@@ -1,4 +1,4 @@
-# Olox — Tech Meets Finance
+# Olox — The Developer's Guide to Wealth
 
 A blog exploring the intersection of Technology and Finance, built with [Hugo](https://gohugo.io/) and the [PaperMod](https://github.com/adityatelange/hugo-PaperMod) theme.
 

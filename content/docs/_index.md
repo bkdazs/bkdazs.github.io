@@ -5,7 +5,7 @@ type: docs
 
 # Welcome to Olox 🚀
 
-**Tech Meets Finance** — Your guide to the intersection of technology and finance.
+**The Developer's Guide to Wealth** — Your guide to the intersection of technology and finance.
 
 ---
 
