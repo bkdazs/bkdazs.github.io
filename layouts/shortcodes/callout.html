@@ -1,0 +1,31 @@
+{{- /* Callout/Alert Box Shortcode - Types: info, warning, success, danger, tip */ -}}
+
+{{ $type := .Get "type" | default "info" }}
+{{ $title := .Get "title" }}
+{{ $icon := "" }}
+
+{{ if eq $type "info" }}
+  {{ $icon = "fa-circle-info" }}
+{{ else if eq $type "warning" }}
+  {{ $icon = "fa-triangle-exclamation" }}
+{{ else if eq $type "success" }}
+  {{ $icon = "fa-circle-check" }}
+{{ else if eq $type "danger" }}
+  {{ $icon = "fa-circle-xmark" }}
+{{ else if eq $type "tip" }}
+  {{ $icon = "fa-lightbulb" }}
+{{ end }}
+
+<div class="callout callout-{{ $type }} alert alert-{{ $type }} d-flex gap-3 my-4" role="alert">
+  <div class="callout-icon fs-4">
+    <i class="fa-solid {{ $icon }}"></i>
+  </div>
+  <div class="callout-content">
+    {{ with $title }}
+    <div class="callout-title fw-semibold mb-1">{{ . }}</div>
+    {{ end }}
+    <div class="callout-body">
+      {{ .Inner | markdownify }}
+    </div>
+  </div>
+</div>

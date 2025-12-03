@@ -1,29 +1,29 @@
 {{ define "main" }}
-<div class="docs-list-page">
+<div class="py-4">
   <!-- Breadcrumbs -->
   {{ if ne .Title "Docs" }}
-  <nav class="docs-breadcrumb">
-    <a href="{{ .Site.BaseURL }}docs/">Docs</a>
-    {{ range .Ancestors.Reverse }}
-      {{ if and (ne .Title "Docs") (ne .Kind "home") }}
-      <span class="breadcrumb-sep">/</span>
-      <a href="{{ .Permalink }}">{{ .Title }}</a>
+  <nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{ .Site.BaseURL }}docs/">Docs</a></li>
+      {{ range .Ancestors.Reverse }}
+        {{ if and (ne .Title "Docs") (ne .Kind "home") }}
+        <li class="breadcrumb-item"><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+        {{ end }}
       {{ end }}
-    {{ end }}
-    <span class="breadcrumb-sep">/</span>
-    <span class="breadcrumb-current">{{ .Title }}</span>
+      <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
+    </ol>
   </nav>
   {{ end }}
   
-  <header class="docs-header">
-    <h1 class="docs-title">{{ .Title }}</h1>
+  <header class="mb-4 pb-3 border-bottom">
+    <h1 class="display-5 fw-bold">{{ .Title }}</h1>
     {{ with .Description }}
-    <p class="docs-description">{{ . }}</p>
+    <p class="lead text-body-secondary">{{ . }}</p>
     {{ end }}
   </header>
   
   {{ with .Content }}
-  <div class="docs-content prose">
+  <div class="prose mb-4">
     {{ . }}
   </div>
   {{ end }}
@@ -31,44 +31,32 @@
   <!-- Subsections -->
   {{ $sections := .Sections }}
   {{ if $sections }}
-  <section class="docs-sections">
-    <h2 class="docs-section-heading">Sections</h2>
-    <div class="docs-cards">
+  <section class="mb-5">
+    <h2 class="h4 mb-3">Sections</h2>
+    <div class="row g-3">
       {{ range $sections.ByWeight }}
-      <a href="{{ .Permalink }}" class="docs-card">
-        <div class="docs-card-icon">
-          {{ if eq .File.ContentBaseName "personal-finance" }}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
-            <line x1="1" y1="10" x2="23" y2="10"/>
-          </svg>
-          {{ else if eq .File.ContentBaseName "stock-market" }}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="22,7 13.5,15.5 8.5,10.5 2,17"/>
-            <polyline points="16,7 22,7 22,13"/>
-          </svg>
-          {{ else if eq .File.ContentBaseName "budgeting-cash-flow" }}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="12" y1="1" x2="12" y2="23"/>
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-          </svg>
-          {{ else if eq .File.ContentBaseName "investing-basics" }}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/>
-            <line x1="12" y1="6" x2="12" y2="8"/>
-            <line x1="12" y1="16" x2="12" y2="18"/>
-          </svg>
-          {{ else }}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
-          </svg>
-          {{ end }}
-        </div>
-        <h3 class="docs-card-title">{{ .Title }}</h3>
-        <p class="docs-card-desc">{{ with .Description }}{{ . }}{{ else }}Explore {{ .Title | lower }}{{ end }}</p>
-        <span class="docs-card-count">{{ len .RegularPagesRecursive }} articles</span>
-      </a>
+      <div class="col-md-6 col-lg-4">
+        <a href="{{ .Permalink }}" class="card h-100 text-decoration-none border-0 shadow-sm">
+          <div class="card-body">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              {{ if eq .File.ContentBaseName "personal-finance" }}
+              <i class="bi bi-credit-card fs-4 text-success"></i>
+              {{ else if eq .File.ContentBaseName "stock-market" }}
+              <i class="bi bi-graph-up-arrow fs-4 text-primary"></i>
+              {{ else if eq .File.ContentBaseName "budgeting-cash-flow" }}
+              <i class="bi bi-cash-stack fs-4 text-warning"></i>
+              {{ else if eq .File.ContentBaseName "investing-basics" }}
+              <i class="bi bi-piggy-bank fs-4 text-info"></i>
+              {{ else }}
+              <i class="bi bi-folder fs-4 text-secondary"></i>
+              {{ end }}
+              <h3 class="card-title h6 mb-0 text-body">{{ .Title }}</h3>
+            </div>
+            <p class="card-text small text-body-secondary mb-2">{{ with .Description }}{{ . }}{{ else }}Explore {{ .Title | lower }}{{ end }}</p>
+            <span class="badge bg-secondary">{{ len .RegularPagesRecursive }} articles</span>
+          </div>
+        </a>
+      </div>
       {{ end }}
     </div>
   </section>
@@ -77,21 +65,18 @@
   <!-- Pages in this section -->
   {{ $pages := .RegularPages }}
   {{ if $pages }}
-  <section class="docs-articles">
-    <h2 class="docs-section-heading">Articles</h2>
-    <div class="docs-article-list">
+  <section>
+    <h2 class="h4 mb-3">Articles</h2>
+    <div class="list-group list-group-flush">
       {{ range $pages.ByWeight }}
-      <a href="{{ .Permalink }}" class="docs-article-item">
-        <div class="docs-article-info">
-          <h3 class="docs-article-title">{{ .Title }}</h3>
-          <p class="docs-article-desc">{{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 100 }}{{ end }}</p>
+      <a href="{{ .Permalink }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-start py-3">
+        <div class="me-3">
+          <h3 class="h6 mb-1">{{ .Title }}</h3>
+          <p class="mb-0 small text-body-secondary">{{ with .Description }}{{ . | truncate 100 }}{{ else }}{{ .Summary | truncate 100 }}{{ end }}</p>
         </div>
-        <div class="docs-article-meta">
-          <span>{{ .ReadingTime }} min</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="5" y1="12" x2="19" y2="12"/>
-            <polyline points="12,5 19,12 12,19"/>
-          </svg>
+        <div class="d-flex align-items-center gap-2 text-body-tertiary flex-shrink-0">
+          <small>{{ .ReadingTime }} min</small>
+          <i class="bi bi-arrow-right"></i>
         </div>
       </a>
       {{ end }}

@@ -1,88 +1,105 @@
 {{ define "main" }}
-<article class="docs-article">
+<!-- Reading Progress Bar -->
+<div class="reading-progress">
+  <div class="reading-progress-bar"></div>
+</div>
+
+<article class="docs-article" data-aos="fade-up">
   <!-- Breadcrumbs -->
-  <nav class="docs-breadcrumb">
-    <a href="{{ .Site.BaseURL }}docs/">Docs</a>
-    {{ range .Ancestors.Reverse }}
-      {{ if and (ne .Title "Docs") (ne .Kind "home") }}
-      <span class="breadcrumb-sep">/</span>
-      <a href="{{ .Permalink }}">{{ .Title }}</a>
+  <nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb small">
+      <li class="breadcrumb-item"><a href="{{ .Site.BaseURL }}docs/" class="text-decoration-none">Docs</a></li>
+      {{ range .Ancestors.Reverse }}
+        {{ if and (ne .Title "Docs") (ne .Kind "home") }}
+        <li class="breadcrumb-item"><a href="{{ .Permalink }}" class="text-decoration-none">{{ .Title }}</a></li>
+        {{ end }}
       {{ end }}
-    {{ end }}
-    <span class="breadcrumb-sep">/</span>
-    <span class="breadcrumb-current">{{ .Title }}</span>
+      <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
+    </ol>
   </nav>
   
   <!-- Article Header -->
-  <header class="docs-header">
-    <h1 class="docs-title">{{ .Title }}</h1>
+  <header class="mb-4 pb-3 border-bottom">
+    <h1 class="h2 fw-bold mb-2">{{ .Title }}</h1>
     {{ with .Description }}
-    <p class="docs-description">{{ . }}</p>
+    <p class="lead text-body-secondary mb-3">{{ . }}</p>
     {{ end }}
-    <div class="docs-meta">
-      <span class="docs-meta-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10"/>
-          <polyline points="12,6 12,12 16,14"/>
-        </svg>
-        {{ .ReadingTime }} min read
-      </span>
-      {{ if gt .Date.Year 1 }}
-      <span class="docs-meta-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-          <line x1="16" y1="2" x2="16" y2="6"/>
-          <line x1="8" y1="2" x2="8" y2="6"/>
-          <line x1="3" y1="10" x2="21" y2="10"/>
-        </svg>
-        {{ .Date.Format "Jan 2, 2006" }}
-      </span>
-      {{ end }}
+    
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+      <div class="d-flex align-items-center gap-3 text-body-secondary small">
+        <span class="d-flex align-items-center gap-1">
+          <i class="bi bi-clock"></i> {{ .ReadingTime }} min read
+        </span>
+        {{ if gt .Date.Year 1 }}
+        <span class="d-flex align-items-center gap-1">
+          <i class="bi bi-calendar3"></i> {{ .Date.Format "Jan 2, 2006" }}
+        </span>
+        {{ end }}
+      </div>
+      
+      <!-- Social Share Buttons -->
+      {{ partial "share-buttons.html" . }}
     </div>
   </header>
   
   <!-- Article Content -->
-  <div class="docs-content prose">
+  <div class="docs-content prose mb-5">
     {{ .Content }}
   </div>
   
   <!-- Tags -->
   {{ with .Params.tags }}
-  <div class="docs-tags">
+  <div class="mb-4" data-aos="fade-up">
+    <i class="bi bi-tags me-2 text-body-secondary"></i>
     {{ range . }}
-    <a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}/" class="docs-tag">{{ . }}</a>
+    <a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}/" class="badge bg-primary-subtle text-primary-emphasis text-decoration-none me-1">{{ . }}</a>
     {{ end }}
   </div>
   {{ end }}
   
+  <!-- Author Card (if author specified) -->
+  {{ with .Params.author }}
+  <div class="card border-0 bg-body-tertiary mb-4" data-aos="fade-up">
+    <div class="card-body d-flex align-items-center gap-3">
+      <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+        <i class="bi bi-person-fill text-white fs-4"></i>
+      </div>
+      <div>
+        <div class="fw-semibold">{{ . }}</div>
+        <small class="text-body-secondary">Author</small>
+      </div>
+    </div>
+  </div>
+  {{ end }}
+  
   <!-- Prev/Next Navigation -->
-  <nav class="docs-nav-footer">
+  <nav class="row g-3 pt-4 border-top" data-aos="fade-up">
     {{ with .PrevInSection }}
-    <a href="{{ .Permalink }}" class="docs-nav-prev">
-      <span class="docs-nav-label">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="19" y1="12" x2="5" y2="12"/>
-          <polyline points="12,19 5,12 12,5"/>
-        </svg>
-        Previous
-      </span>
-      <span class="docs-nav-title">{{ .Title }}</span>
-    </a>
+    <div class="col-sm-6">
+      <a href="{{ .Permalink }}" class="card h-100 text-decoration-none border-0 bg-body-tertiary hover-lift">
+        <div class="card-body">
+          <div class="d-flex align-items-center gap-2 text-body-secondary small mb-1">
+            <i class="bi bi-arrow-left"></i> Previous
+          </div>
+          <div class="fw-medium text-body">{{ .Title | truncate 50 }}</div>
+        </div>
+      </a>
+    </div>
     {{ else }}
-    <div></div>
+    <div class="col-sm-6"></div>
     {{ end }}
     
     {{ with .NextInSection }}
-    <a href="{{ .Permalink }}" class="docs-nav-next">
-      <span class="docs-nav-label">
-        Next
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="5" y1="12" x2="19" y2="12"/>
-          <polyline points="12,5 19,12 12,19"/>
-        </svg>
-      </span>
-      <span class="docs-nav-title">{{ .Title }}</span>
-    </a>
+    <div class="col-sm-6">
+      <a href="{{ .Permalink }}" class="card h-100 text-decoration-none border-0 bg-body-tertiary text-end hover-lift">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-end gap-2 text-body-secondary small mb-1">
+            Next <i class="bi bi-arrow-right"></i>
+          </div>
+          <div class="fw-medium text-body">{{ .Title | truncate 50 }}</div>
+        </div>
+      </a>
+    </div>
     {{ end }}
   </nav>
 </article>

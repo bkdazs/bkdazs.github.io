@@ -1,81 +1,83 @@
 {{ define "main" }}
-<div class="posts-page">
-  <header class="page-header">
-    <h1 class="page-title">{{ .Title | default "Blog" }}</h1>
+<div class="container py-4">
+  <!-- Page Header -->
+  <header class="mb-4 pb-3 border-bottom">
+    <h1 class="display-5 fw-bold">{{ .Title | default "Blog" }}</h1>
     {{ with .Description }}
-    <p class="page-description">{{ . }}</p>
+    <p class="lead text-body-secondary">{{ . }}</p>
     {{ else }}
-    <p class="page-description">Latest articles and insights on technology, finance, and everything in between.</p>
+    <p class="lead text-body-secondary">Latest articles and insights on technology, finance, and everything in between.</p>
     {{ end }}
   </header>
   
   <!-- Filter by categories -->
   {{ $categories := .Site.Taxonomies.categories }}
   {{ if $categories }}
-  <nav class="posts-filter">
-    <a href="{{ .Site.BaseURL }}posts/" class="filter-btn {{ if not .Data.Term }}active{{ end }}">All</a>
-    {{ range $name, $taxonomy := $categories }}
-    <a href="{{ $.Site.BaseURL }}categories/{{ $name | urlize }}/" class="filter-btn">{{ $name | humanize }}</a>
-    {{ end }}
+  <nav class="mb-4">
+    <div class="d-flex flex-wrap gap-2">
+      <a href="{{ .Site.BaseURL }}posts/" class="btn btn-sm {{ if not .Data.Term }}btn-primary{{ else }}btn-outline-secondary{{ end }}">All</a>
+      {{ range $name, $taxonomy := $categories }}
+      <a href="{{ $.Site.BaseURL }}categories/{{ $name | urlize }}/" class="btn btn-sm btn-outline-secondary">{{ $name | humanize }}</a>
+      {{ end }}
+    </div>
   </nav>
   {{ end }}
   
   <!-- Articles List -->
   {{ $pages := .Pages }}
   {{ if $pages }}
-  <section class="articles-section">
-    <div class="posts-list">
+  <section>
+    <div class="row g-4">
       {{ range $pages.ByDate.Reverse }}
-      <article class="post-item {{ if not .Params.cover.image }}no-image{{ end }}">
-        {{ with .Params.cover.image }}
-        {{ if ne . "" }}
-        <div class="post-image">
-          <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy" onerror="this.parentElement.style.display='none'">
-        </div>
-        {{ end }}
-        {{ end }}
-        
-        <div class="post-content">
-          <div class="post-meta-top">
-            {{ with .Params.categories }}
-            {{ range first 1 . }}
-            <a href="{{ $.Site.BaseURL }}categories/{{ . | urlize }}/" class="post-category">{{ . }}</a>
-            {{ end }}
-            {{ end }}
-            {{ if gt .Date.Year 1 }}<span class="post-date">{{ .Date.Format "Jan 2, 2006" }}</span>{{ end }}
-          </div>
-          
-          <h2 class="post-title">
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-          </h2>
-          
-          <p class="post-excerpt">
-            {{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 200 }}{{ end }}
-          </p>
-          
-          <div class="post-footer">
-            <div class="post-meta">
-              {{ with .Params.author }}
-              <span class="author">By {{ . }}</span>
-              {{ end }}
-              <span class="read-time">{{ .ReadingTime }} min read</span>
+      <div class="col-12">
+        <article class="card border-0 shadow-sm">
+          <div class="row g-0">
+            {{ with .Params.cover.image }}
+            {{ if ne . "" }}
+            <div class="col-md-4">
+              <img src="{{ . }}" alt="{{ $.Title }}" class="img-fluid rounded-start h-100 object-fit-cover" loading="lazy" style="max-height: 250px;">
             </div>
-            <a href="{{ .Permalink }}" class="read-more">
-              Read more
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="5" y1="12" x2="19" y2="12"/>
-                <polyline points="12,5 19,12 12,19"/>
-              </svg>
-            </a>
+            {{ end }}
+            {{ end }}
+            
+            <div class="{{ if .Params.cover.image }}col-md-8{{ else }}col-12{{ end }}">
+              <div class="card-body">
+                <div class="d-flex gap-2 mb-2 align-items-center flex-wrap">
+                  {{ with .Params.categories }}
+                  {{ range first 1 . }}
+                  <a href="{{ $.Site.BaseURL }}categories/{{ . | urlize }}/" class="badge bg-primary text-decoration-none">{{ . }}</a>
+                  {{ end }}
+                  {{ end }}
+                  {{ if gt .Date.Year 1 }}<small class="text-body-tertiary">{{ .Date.Format "Jan 2, 2006" }}</small>{{ end }}
+                </div>
+                
+                <h2 class="card-title h5">
+                  <a href="{{ .Permalink }}" class="text-decoration-none text-body">{{ .Title }}</a>
+                </h2>
+                
+                <p class="card-text text-body-secondary">
+                  {{ with .Description }}{{ . | truncate 200 }}{{ else }}{{ .Summary | truncate 200 }}{{ end }}
+                </p>
+                
+                <div class="d-flex justify-content-between align-items-center">
+                  <small class="text-body-tertiary">
+                    {{ with .Params.author }}By {{ . }} · {{ end }}{{ .ReadingTime }} min read
+                  </small>
+                  <a href="{{ .Permalink }}" class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1">
+                    Read more <i class="bi bi-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </div>
       {{ end }}
     </div>
   </section>
   {{ else }}
-  <div class="no-posts">
-    <p>No posts found. Check back soon!</p>
+  <div class="alert alert-info">
+    <p class="mb-0">No posts found. Check back soon!</p>
   </div>
   {{ end }}
   

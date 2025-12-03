@@ -1,67 +1,117 @@
-<footer class="site-footer">
-  <div class="footer-container">
-    <div class="footer-grid">
+<footer class="bg-body-tertiary border-top mt-5">
+  <div class="container py-5">
+    <div class="row g-4">
       <!-- Brand -->
-      <div class="footer-brand">
-        <a href="{{ .Site.BaseURL }}" class="footer-logo">
-          <img src="/images/logo.png" alt="{{ .Site.Title }}" class="logo-img">
+      <div class="col-lg-4 col-md-6">
+        <a href="{{ .Site.BaseURL }}" class="d-flex align-items-center mb-3 text-decoration-none">
+          <img src="/images/logo.png" alt="{{ .Site.Title }}" height="36" class="me-2">
         </a>
-        <p class="footer-tagline">{{ .Site.Params.description }}</p>
+        <p class="text-body-secondary small mb-3">{{ .Site.Params.description }}</p>
+        <!-- Social Icons -->
+        <div class="d-flex gap-2">
+          {{ with .Site.Params.linkedin }}
+          <a href="https://linkedin.com/in/{{ . }}" target="_blank" rel="noopener" 
+             class="btn btn-sm btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center" 
+             style="width: 36px; height: 36px;" aria-label="LinkedIn">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+          {{ end }}
+          {{ with .Site.Params.twitter }}
+          <a href="https://twitter.com/{{ . }}" target="_blank" rel="noopener" 
+             class="btn btn-sm btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center" 
+             style="width: 36px; height: 36px;" aria-label="Twitter">
+            <i class="fa-brands fa-x-twitter"></i>
+          </a>
+          {{ end }}
+          {{ with .Site.Params.github }}
+          <a href="https://github.com/{{ . }}" target="_blank" rel="noopener" 
+             class="btn btn-sm btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center" 
+             style="width: 36px; height: 36px;" aria-label="GitHub">
+            <i class="fa-brands fa-github"></i>
+          </a>
+          {{ end }}
+        </div>
       </div>
       
       <!-- Quick Links -->
-      <div class="footer-links">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="{{ .Site.BaseURL }}">Home</a></li>
-          <li><a href="{{ .Site.BaseURL }}docs/">Documentation</a></li>
-          <li><a href="{{ .Site.BaseURL }}posts/">Blog</a></li>
-          <li><a href="{{ .Site.BaseURL }}about/">About</a></li>
+      <div class="col-lg-2 col-md-6 col-6">
+        <h6 class="fw-semibold mb-3">Quick Links</h6>
+        <ul class="list-unstyled small">
+          <li class="mb-2"><a href="{{ .Site.BaseURL }}" class="text-body-secondary text-decoration-none hover-primary">Home</a></li>
+          <li class="mb-2"><a href="{{ .Site.BaseURL }}docs/" class="text-body-secondary text-decoration-none hover-primary">Documentation</a></li>
+          <li class="mb-2"><a href="{{ .Site.BaseURL }}posts/" class="text-body-secondary text-decoration-none hover-primary">Blog</a></li>
+          <li class="mb-2"><a href="{{ .Site.BaseURL }}about/" class="text-body-secondary text-decoration-none hover-primary">About</a></li>
         </ul>
       </div>
       
       <!-- Topics -->
-      <div class="footer-links">
-        <h4>Topics</h4>
-        <ul>
-          <li><a href="{{ .Site.BaseURL }}docs/finance/">Finance</a></li>
-          <li><a href="{{ .Site.BaseURL }}docs/ai-ml/">AI & ML</a></li>
-          <li><a href="{{ .Site.BaseURL }}docs/programming/">Programming</a></li>
-          <li><a href="{{ .Site.BaseURL }}docs/crypto/">Blockchain</a></li>
-          <li><a href="{{ .Site.BaseURL }}docs/data-science/">Data Science</a></li>
+      <div class="col-lg-2 col-md-6 col-6">
+        <h6 class="fw-semibold mb-3">Topics</h6>
+        <ul class="list-unstyled small">
+          <li class="mb-2"><a href="{{ .Site.BaseURL }}docs/finance/" class="text-body-secondary text-decoration-none hover-primary">Finance</a></li>
+          <li class="mb-2"><a href="{{ .Site.BaseURL }}docs/ai-ml/" class="text-body-secondary text-decoration-none hover-primary">AI & ML</a></li>
+          <li class="mb-2"><a href="{{ .Site.BaseURL }}docs/programming/" class="text-body-secondary text-decoration-none hover-primary">Programming</a></li>
+          <li class="mb-2"><a href="{{ .Site.BaseURL }}docs/crypto/" class="text-body-secondary text-decoration-none hover-primary">Blockchain</a></li>
         </ul>
       </div>
       
-      <!-- Connect -->
-      <div class="footer-links">
-        <h4>Connect</h4>
-        <ul>
-          {{ with .Site.Params.linkedin }}<li><a href="https://linkedin.com/in/{{ . }}" target="_blank" rel="noopener">LinkedIn</a></li>{{ end }}
-          {{ with .Site.Params.twitter }}<li><a href="https://twitter.com/{{ . }}" target="_blank" rel="noopener">Twitter</a></li>{{ end }}
-          <li><a href="{{ .Site.BaseURL }}contact/">Contact</a></li>
+      <!-- Resources -->
+      <div class="col-lg-2 col-md-6 col-6">
+        <h6 class="fw-semibold mb-3">Resources</h6>
+        <ul class="list-unstyled small">
+          <li class="mb-2"><a href="{{ .Site.BaseURL }}tags/" class="text-body-secondary text-decoration-none hover-primary">Tags</a></li>
+          <li class="mb-2"><a href="{{ .Site.BaseURL }}categories/" class="text-body-secondary text-decoration-none hover-primary">Categories</a></li>
+          <li class="mb-2"><a href="{{ .Site.BaseURL }}sitemap.xml" class="text-body-secondary text-decoration-none hover-primary">Sitemap</a></li>
+          <li class="mb-2"><a href="{{ .Site.BaseURL }}index.xml" class="text-body-secondary text-decoration-none hover-primary"><i class="fa-solid fa-rss me-1"></i>RSS Feed</a></li>
         </ul>
+      </div>
+      
+      <!-- Newsletter (placeholder) -->
+      <div class="col-lg-2 col-md-6">
+        <h6 class="fw-semibold mb-3">Stay Updated</h6>
+        <p class="text-body-secondary small">Get the latest articles and insights delivered to your inbox.</p>
+        <a href="{{ .Site.BaseURL }}index.xml" class="btn btn-primary btn-sm w-100">
+          <i class="fa-solid fa-bell me-1"></i> Subscribe
+        </a>
       </div>
     </div>
     
     <!-- Bottom Bar -->
-    <div class="footer-bottom">
-      <p>&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved.</p>
-      <div class="footer-social">
-        {{ with .Site.Params.linkedin }}
-        <a href="https://linkedin.com/in/{{ . }}" target="_blank" rel="noopener" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-          </svg>
-        </a>
-        {{ end }}
-        {{ with .Site.Params.twitter }}
-        <a href="https://twitter.com/{{ . }}" target="_blank" rel="noopener" aria-label="Twitter">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
-          </svg>
-        </a>
-        {{ end }}
+    <div class="border-top pt-4 mt-4">
+      <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2">
+        <p class="text-body-secondary small mb-0">
+          &copy; {{ now.Year }} {{ .Site.Title }}. Built with <i class="fa-solid fa-heart text-danger"></i> using Hugo.
+        </p>
+        <div class="d-flex gap-3 small">
+          <a href="{{ .Site.BaseURL }}privacy/" class="text-body-secondary text-decoration-none">Privacy</a>
+          <a href="{{ .Site.BaseURL }}terms/" class="text-body-secondary text-decoration-none">Terms</a>
+        </div>
       </div>
     </div>
   </div>
 </footer>
+
+<!-- Back to Top Button -->
+<a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">
+  <i class="fa-solid fa-arrow-up"></i>
+</a>
+
+<script>
+  // Back to top button
+  $(document).ready(function() {
+    var backToTop = $('#backToTop');
+    
+    $(window).on('scroll', function() {
+      if ($(this).scrollTop() > 300) {
+        backToTop.addClass('visible');
+      } else {
+        backToTop.removeClass('visible');
+      }
+    });
+    
+    backToTop.on('click', function(e) {
+      e.preventDefault();
+      $('html, body').animate({ scrollTop: 0 }, 400);
+    });
+  });
+</script>

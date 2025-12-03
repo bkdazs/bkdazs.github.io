@@ -1,80 +1,91 @@
-<aside class="docs-sidebar">
-  <div class="docs-sidebar-inner">
-    <!-- Mobile Close Button -->
-    <button class="docs-sidebar-close" onclick="toggleDocsSidebar()" aria-label="Close sidebar">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="18" y1="6" x2="6" y2="18"/>
-        <line x1="6" y1="6" x2="18" y2="18"/>
-      </svg>
-    </button>
-    
+<!-- Desktop Docs Sidebar -->
+<aside class="col-lg-3 col-xl-2 d-none d-lg-block border-end bg-body-tertiary">
+  <div class="position-sticky pt-4 pb-5" style="top: 70px; height: calc(100vh - 70px); overflow-y: auto;">
     <!-- Back to Home -->
-    <a href="{{ .Site.BaseURL }}" class="docs-back-link">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="19" y1="12" x2="5" y2="12"/>
-        <polyline points="12,19 5,12 12,5"/>
-      </svg>
-      Home
+    <a href="{{ .Site.BaseURL }}" class="d-flex align-items-center gap-2 text-decoration-none text-body-secondary small mb-3 px-3">
+      <i class="bi bi-arrow-left"></i> Home
     </a>
     
     <!-- Docs Title -->
-    <div class="docs-sidebar-title">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-      </svg>
-      Documentation
-    </div>
+    <h6 class="d-flex align-items-center gap-2 px-3 mb-3 fw-semibold">
+      <i class="bi bi-book"></i> Documentation
+    </h6>
     
     <!-- Navigation Tree -->
-    <nav class="docs-nav">
+    <nav class="docs-nav px-2">
       {{ $docsSection := .Site.GetPage "section" "docs" }}
       {{ if $docsSection }}
-        {{ template "docs-nav-recursive" (dict "Section" $docsSection "CurrentPage" . "Level" 0) }}
+        {{ template "docs-nav-bootstrap" (dict "Section" $docsSection "CurrentPage" . "Level" 0 "ParentID" "docs") }}
       {{ end }}
     </nav>
   </div>
 </aside>
 
-<!-- Mobile Overlay -->
-<div class="docs-sidebar-overlay" onclick="toggleDocsSidebar()"></div>
-
-<!-- Mobile Menu Toggle -->
-<button class="docs-mobile-toggle" onclick="toggleDocsSidebar()" aria-label="Open documentation menu">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <line x1="3" y1="12" x2="21" y2="12"/>
-    <line x1="3" y1="6" x2="21" y2="6"/>
-    <line x1="3" y1="18" x2="21" y2="18"/>
-  </svg>
-  <span>Menu</span>
+<!-- Mobile Docs Toggle -->
+<button class="btn btn-primary d-lg-none position-fixed bottom-0 start-0 m-3 rounded-pill shadow-lg d-flex align-items-center gap-2" 
+        type="button" data-bs-toggle="offcanvas" data-bs-target="#docsOffcanvas" 
+        aria-controls="docsOffcanvas" style="z-index: 1040;">
+  <i class="bi bi-list"></i> Menu
 </button>
 
-<!-- Recursive Navigation Template -->
-{{ define "docs-nav-recursive" }}
+<!-- Mobile Offcanvas -->
+<div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="docsOffcanvas" aria-labelledby="docsOffcanvasLabel">
+  <div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title d-flex align-items-center gap-2" id="docsOffcanvasLabel">
+      <i class="bi bi-book"></i> Documentation
+    </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <a href="{{ .Site.BaseURL }}" class="d-flex align-items-center gap-2 text-decoration-none text-body-secondary small mb-3">
+      <i class="bi bi-arrow-left"></i> Back to Home
+    </a>
+    <nav class="docs-nav">
+      {{ $docsSection := .Site.GetPage "section" "docs" }}
+      {{ if $docsSection }}
+        {{ template "docs-nav-bootstrap" (dict "Section" $docsSection "CurrentPage" . "Level" 0 "ParentID" "mobile-docs") }}
+      {{ end }}
+    </nav>
+  </div>
+</div>
+
+<!-- Bootstrap Accordion Navigation Template -->
+{{ define "docs-nav-bootstrap" }}
   {{ $section := .Section }}
   {{ $currentPage := .CurrentPage }}
   {{ $level := .Level }}
+  {{ $parentID := .ParentID }}
   
-  <ul class="docs-nav-list level-{{ $level }}">
+  <ul class="nav flex-column">
     <!-- Subsections first -->
-    {{ range $section.Sections.ByWeight }}
-      {{ $hasChildren := or (gt (len .Sections) 0) (gt (len .RegularPages) 0) }}
-      <li class="docs-nav-item {{ if $hasChildren }}has-children{{ end }}">
+    {{ range $index, $subsection := $section.Sections.ByWeight }}
+      {{ $hasChildren := or (gt (len $subsection.Sections) 0) (gt (len $subsection.RegularPages) 0) }}
+      {{ $collapseID := printf "%s-%d" $parentID $index }}
+      {{ $isActive := or ($currentPage.IsDescendant $subsection) (eq $currentPage.Permalink $subsection.Permalink) }}
+      
+      <li class="nav-item">
         {{ if $hasChildren }}
-        <details {{ if or ($currentPage.IsDescendant .) (eq $currentPage.Permalink .Permalink) }}open{{ end }}>
-          <summary class="docs-nav-summary">
-            <svg class="docs-nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="9,18 15,12 9,6"/>
-            </svg>
-            <a href="{{ .Permalink }}" class="docs-nav-link {{ if eq $currentPage.Permalink .Permalink }}active{{ end }}">
-              {{ .Title }}
-            </a>
-          </summary>
-          {{ template "docs-nav-recursive" (dict "Section" . "CurrentPage" $currentPage "Level" (add $level 1)) }}
-        </details>
+        <div class="d-flex align-items-center">
+          <a href="{{ $subsection.Permalink }}" 
+             class="nav-link flex-grow-1 py-1 {{ if eq $currentPage.Permalink $subsection.Permalink }}active fw-semibold{{ end }}"
+             style="padding-left: {{ mul $level 12 }}px;">
+            {{ $subsection.Title }}
+          </a>
+          <button class="btn btn-sm btn-link text-body-secondary p-0 px-2" 
+                  type="button" data-bs-toggle="collapse" 
+                  data-bs-target="#{{ $collapseID }}" 
+                  aria-expanded="{{ if $isActive }}true{{ else }}false{{ end }}">
+            <i class="bi bi-chevron-down small"></i>
+          </button>
+        </div>
+        <div class="collapse {{ if $isActive }}show{{ end }}" id="{{ $collapseID }}">
+          {{ template "docs-nav-bootstrap" (dict "Section" $subsection "CurrentPage" $currentPage "Level" (add $level 1) "ParentID" $collapseID) }}
+        </div>
         {{ else }}
-        <a href="{{ .Permalink }}" class="docs-nav-link {{ if eq $currentPage.Permalink .Permalink }}active{{ end }}">
-          {{ .Title }}
+        <a href="{{ $subsection.Permalink }}" 
+           class="nav-link py-1 {{ if eq $currentPage.Permalink $subsection.Permalink }}active fw-semibold{{ end }}"
+           style="padding-left: {{ mul $level 12 }}px;">
+          {{ $subsection.Title }}
         </a>
         {{ end }}
       </li>
@@ -82,12 +93,11 @@
     
     <!-- Then pages in this section -->
     {{ range $section.RegularPages.ByWeight }}
-    <li class="docs-nav-item">
-      <a href="{{ .Permalink }}" class="docs-nav-link docs-nav-page {{ if eq $currentPage.Permalink .Permalink }}active{{ end }}">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14,2 14,8 20,8"/>
-        </svg>
+    <li class="nav-item">
+      <a href="{{ .Permalink }}" 
+         class="nav-link py-1 d-flex align-items-center gap-2 {{ if eq $currentPage.Permalink .Permalink }}active fw-semibold{{ end }}"
+         style="padding-left: {{ mul $level 12 }}px;">
+        <i class="bi bi-file-text small text-body-tertiary"></i>
         {{ .Title }}
       </a>
     </li>

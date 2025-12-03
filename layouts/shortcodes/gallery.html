@@ -1,0 +1,22 @@
+{{- /* Image Gallery Shortcode */ -}}
+{{- /* Usage: place images inside the shortcode */ -}}
+
+<div class="gallery-container row g-3 my-4" id="gallery-{{ .Ordinal }}">
+  {{ .Inner | markdownify }}
+</div>
+
+<script>
+  $(document).ready(function() {
+    if (typeof lightGallery !== 'undefined') {
+      var gallery = document.getElementById('gallery-{{ .Ordinal }}');
+      if (gallery) {
+        lightGallery(gallery, {
+          selector: 'img',
+          plugins: [lgZoom, lgThumbnail],
+          speed: 300,
+          download: false
+        });
+      }
+    }
+  });
+</script>

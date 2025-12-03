@@ -1,16 +1,16 @@
 {{ define "main" }}
-<div class="list-page">
+<div class="container py-4">
   <!-- Page Header -->
-  <header class="page-header">
-    <h1 class="page-title">{{ .Title }}</h1>
+  <header class="mb-4 pb-3 border-bottom">
+    <h1 class="display-5 fw-bold">{{ .Title }}</h1>
     {{ with .Description }}
-    <p class="page-description">{{ . }}</p>
+    <p class="lead text-body-secondary">{{ . }}</p>
     {{ end }}
   </header>
   
   <!-- Content -->
   {{ with .Content }}
-  <div class="page-content prose">
+  <div class="prose mb-4">
     {{ . }}
   </div>
   {{ end }}
@@ -22,44 +22,42 @@
   {{ end }}
   
   {{ if $pages }}
-  <section class="articles-section">
-    <div class="articles-grid">
+  <section>
+    <div class="row g-4">
       {{ range $pages.ByDate.Reverse }}
-      <article class="article-card {{ if not .Params.cover.image }}no-image{{ end }}">
-        {{ with .Params.cover.image }}
-        {{ if ne . "" }}
-        <div class="card-image">
-          <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy" onerror="this.parentElement.style.display='none'">
-        </div>
-        {{ end }}
-        {{ end }}
-        
-        <div class="card-content">
-          {{ with .Params.categories }}
-          <div class="card-categories">
-            {{ range first 2 . }}
-            <span class="category-badge">{{ . }}</span>
-            {{ end }}
-          </div>
+      <div class="col-md-6 col-lg-4">
+        <article class="card h-100 border-0 shadow-sm">
+          {{ with .Params.cover.image }}
+          {{ if ne . "" }}
+          <img src="{{ . }}" alt="{{ $.Title }}" class="card-img-top object-fit-cover" loading="lazy" style="height: 180px;">
+          {{ end }}
           {{ end }}
           
-          <h2 class="card-title">
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-          </h2>
-          
-          <p class="card-description">
-            {{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 120 }}{{ end }}
-          </p>
-          
-          <div class="card-meta">
-            {{ if gt .Date.Year 1 }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
-            <span class="meta-separator">·</span>{{ end }}
-            <span>{{ .ReadingTime }} min read</span>
+          <div class="card-body d-flex flex-column">
+            {{ with .Params.categories }}
+            <div class="mb-2">
+              {{ range first 2 . }}
+              <span class="badge bg-primary me-1">{{ . }}</span>
+              {{ end }}
+            </div>
+            {{ end }}
+            
+            <h2 class="card-title h6">
+              <a href="{{ .Permalink }}" class="text-decoration-none text-body">{{ .Title }}</a>
+            </h2>
+            
+            <p class="card-text text-body-secondary small flex-grow-1">
+              {{ with .Description }}{{ . | truncate 100 }}{{ else }}{{ .Summary | truncate 100 }}{{ end }}
+            </p>
+            
+            <div class="mt-auto">
+              <small class="text-body-tertiary">
+                {{ if gt .Date.Year 1 }}{{ .Date.Format "Jan 2, 2006" }} · {{ end }}{{ .ReadingTime }} min read
+              </small>
+            </div>
           </div>
-        </div>
-        
-        <a href="{{ .Permalink }}" class="card-link" aria-label="Read {{ .Title }}"></a>
-      </article>
+        </article>
+      </div>
       {{ end }}
     </div>
   </section>

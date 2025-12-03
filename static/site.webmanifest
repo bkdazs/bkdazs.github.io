@@ -1,0 +1,20 @@
+{
+  "name": "Olox - The Developer's Guide to Wealth",
+  "short_name": "Olox",
+  "description": "Expert insights on technology, finance, AI, and wealth building for developers",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0d6efd",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "education", "technology"],
+  "lang": "en"
+}

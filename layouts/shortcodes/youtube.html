@@ -1,0 +1,17 @@
+{{- /* YouTube Embed Shortcode - Usage: youtube VIDEO_ID */ -}}
+
+{{ $id := .Get 0 | default (.Get "id") }}
+{{ $title := .Get "title" | default "YouTube video" }}
+{{ $start := .Get "start" | default 0 }}
+{{ $autoplay := .Get "autoplay" | default false }}
+
+<div class="video-container ratio ratio-16x9 my-4 rounded-3 overflow-hidden shadow">
+  <iframe 
+    src="https://www.youtube-nocookie.com/embed/{{ $id }}?rel=0&modestbranding=1{{ if $start }}&start={{ $start }}{{ end }}{{ if $autoplay }}&autoplay=1{{ end }}" 
+    title="{{ $title }}"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    allowfullscreen
+    loading="lazy"
+    class="border-0">
+  </iframe>
+</div>

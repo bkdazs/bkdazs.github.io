@@ -1,207 +1,165 @@
 {{ define "main" }}
 <div class="home-page">
   <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1 class="hero-title">
-        <span class="gradient-text">The Developer's Guide to Wealth</span>
+  <section class="py-5 text-center">
+    <div class="container py-5">
+      <h1 class="display-4 fw-bold mb-3">
+        <span class="text-primary">The Developer's Guide to Wealth</span>
       </h1>
-      <p class="hero-description">
+      <p class="lead text-body-secondary mb-4 mx-auto" style="max-width: 700px;">
         Your comprehensive resource for technology, finance, AI, and everything in between. 
         Expert insights, tutorials, and analysis to help you stay ahead.
       </p>
-      <div class="hero-actions">
-        <a href="{{ .Site.BaseURL }}docs/" class="btn btn-primary">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-          </svg>
-          Browse Docs
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="{{ .Site.BaseURL }}docs/" class="btn btn-primary btn-lg d-flex align-items-center gap-2">
+          <i class="bi bi-book"></i> Browse Docs
         </a>
-        <a href="{{ .Site.BaseURL }}posts/" class="btn btn-secondary">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <polyline points="14,2 14,8 20,8"/>
-            <line x1="16" y1="13" x2="8" y2="13"/>
-            <line x1="16" y1="17" x2="8" y2="17"/>
-          </svg>
-          Read Blog
+        <a href="{{ .Site.BaseURL }}posts/" class="btn btn-outline-secondary btn-lg d-flex align-items-center gap-2">
+          <i class="bi bi-journal-text"></i> Read Blog
         </a>
-      </div>
-    </div>
-    
-    <!-- Floating Elements -->
-    <div class="hero-visual">
-      <div class="floating-card card-1">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="12" y1="1" x2="12" y2="23"/>
-          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-        </svg>
-        <span>Finance</span>
-      </div>
-      <div class="floating-card card-2">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="4" y="4" width="16" height="16" rx="2" ry="2"/>
-          <rect x="9" y="9" width="6" height="6"/>
-          <line x1="9" y1="1" x2="9" y2="4"/>
-          <line x1="15" y1="1" x2="15" y2="4"/>
-        </svg>
-        <span>AI & ML</span>
-      </div>
-      <div class="floating-card card-3">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="16,18 22,12 16,6"/>
-          <polyline points="8,6 2,12 8,18"/>
-        </svg>
-        <span>Code</span>
       </div>
     </div>
   </section>
   
   <!-- Features Grid -->
-  <section class="features-section">
-    <h2 class="section-title">Explore Topics</h2>
-    <div class="features-grid">
-      <a href="{{ .Site.BaseURL }}docs/finance/" class="feature-card">
-        <div class="feature-icon finance">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="12" y1="1" x2="12" y2="23"/>
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-          </svg>
+  <section class="py-5 bg-body-tertiary">
+    <div class="container">
+      <h2 class="text-center mb-5 fw-bold">Explore Topics</h2>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <a href="{{ .Site.BaseURL }}docs/finance/" class="card h-100 text-decoration-none border-0 shadow-sm">
+            <div class="card-body text-center p-4">
+              <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                <i class="bi bi-currency-dollar text-success fs-3"></i>
+              </div>
+              <h5 class="card-title text-body">Finance & Trading</h5>
+              <p class="card-text text-body-secondary small">Investment strategies, market analysis, and financial concepts explained simply.</p>
+            </div>
+          </a>
         </div>
-        <h3>Finance & Trading</h3>
-        <p>Investment strategies, market analysis, and financial concepts explained simply.</p>
-      </a>
-      
-      <a href="{{ .Site.BaseURL }}docs/ai-ml/" class="feature-card">
-        <div class="feature-icon ai">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/>
-            <path d="M16 10v2a4 4 0 0 1-8 0v-2"/>
-            <line x1="12" y1="14" x2="12" y2="22"/>
-            <path d="M8 22h8"/>
-          </svg>
+        
+        <div class="col-md-6 col-lg-4">
+          <a href="{{ .Site.BaseURL }}docs/ai-ml/" class="card h-100 text-decoration-none border-0 shadow-sm">
+            <div class="card-body text-center p-4">
+              <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                <i class="bi bi-cpu text-primary fs-3"></i>
+              </div>
+              <h5 class="card-title text-body">AI & Machine Learning</h5>
+              <p class="card-text text-body-secondary small">Deep learning, neural networks, and practical AI applications.</p>
+            </div>
+          </a>
         </div>
-        <h3>AI & Machine Learning</h3>
-        <p>Deep learning, neural networks, and practical AI applications.</p>
-      </a>
-      
-      <a href="{{ .Site.BaseURL }}docs/programming/" class="feature-card">
-        <div class="feature-icon code">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="16,18 22,12 16,6"/>
-            <polyline points="8,6 2,12 8,18"/>
-          </svg>
+        
+        <div class="col-md-6 col-lg-4">
+          <a href="{{ .Site.BaseURL }}docs/programming/" class="card h-100 text-decoration-none border-0 shadow-sm">
+            <div class="card-body text-center p-4">
+              <div class="bg-info bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                <i class="bi bi-code-slash text-info fs-3"></i>
+              </div>
+              <h5 class="card-title text-body">Programming</h5>
+              <p class="card-text text-body-secondary small">Best practices, tutorials, and insights across multiple languages.</p>
+            </div>
+          </a>
         </div>
-        <h3>Programming</h3>
-        <p>Best practices, tutorials, and insights across multiple languages.</p>
-      </a>
-      
-      <a href="{{ .Site.BaseURL }}docs/crypto/" class="feature-card">
-        <div class="feature-icon crypto">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M9.5 8h5L12 12l2.5 4h-5"/>
-          </svg>
+        
+        <div class="col-md-6 col-lg-4">
+          <a href="{{ .Site.BaseURL }}docs/crypto/" class="card h-100 text-decoration-none border-0 shadow-sm">
+            <div class="card-body text-center p-4">
+              <div class="bg-warning bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                <i class="bi bi-currency-bitcoin text-warning fs-3"></i>
+              </div>
+              <h5 class="card-title text-body">Blockchain & Crypto</h5>
+              <p class="card-text text-body-secondary small">Cryptocurrency, DeFi, and blockchain technology explained.</p>
+            </div>
+          </a>
         </div>
-        <h3>Blockchain & Crypto</h3>
-        <p>Cryptocurrency, DeFi, and blockchain technology explained.</p>
-      </a>
-      
-      <a href="{{ .Site.BaseURL }}docs/data-science/" class="feature-card">
-        <div class="feature-icon data">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-            <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
-            <line x1="12" y1="22.08" x2="12" y2="12"/>
-          </svg>
+        
+        <div class="col-md-6 col-lg-4">
+          <a href="{{ .Site.BaseURL }}docs/data-science/" class="card h-100 text-decoration-none border-0 shadow-sm">
+            <div class="card-body text-center p-4">
+              <div class="bg-danger bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                <i class="bi bi-graph-up text-danger fs-3"></i>
+              </div>
+              <h5 class="card-title text-body">Data Science</h5>
+              <p class="card-text text-body-secondary small">Analytics, visualization, and data-driven decision making.</p>
+            </div>
+          </a>
         </div>
-        <h3>Data Science</h3>
-        <p>Analytics, visualization, and data-driven decision making.</p>
-      </a>
-      
-      <a href="{{ .Site.BaseURL }}posts/" class="feature-card">
-        <div class="feature-icon blog">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <polyline points="14,2 14,8 20,8"/>
-            <line x1="16" y1="13" x2="8" y2="13"/>
-            <line x1="16" y1="17" x2="8" y2="17"/>
-          </svg>
+        
+        <div class="col-md-6 col-lg-4">
+          <a href="{{ .Site.BaseURL }}posts/" class="card h-100 text-decoration-none border-0 shadow-sm">
+            <div class="card-body text-center p-4">
+              <div class="bg-secondary bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
+                <i class="bi bi-journal-richtext text-secondary fs-3"></i>
+              </div>
+              <h5 class="card-title text-body">Latest Posts</h5>
+              <p class="card-text text-body-secondary small">Fresh articles, tutorials, and insights published regularly.</p>
+            </div>
+          </a>
         </div>
-        <h3>Latest Posts</h3>
-        <p>Fresh articles, tutorials, and insights published regularly.</p>
-      </a>
+      </div>
     </div>
   </section>
   
   <!-- Latest Articles -->
   {{ $posts := where site.RegularPages "Section" "posts" }}
   {{ if $posts }}
-  <section class="latest-section">
-    <div class="section-header">
-      <h2 class="section-title">Latest Articles</h2>
-      <a href="{{ .Site.BaseURL }}posts/" class="section-link">
-        View all
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="5" y1="12" x2="19" y2="12"/>
-          <polyline points="12,5 19,12 12,19"/>
-        </svg>
-      </a>
-    </div>
-    <div class="articles-grid">
-      {{ range first 3 ($posts.ByDate.Reverse) }}
-      <article class="article-card">
-        <div class="card-content">
-          {{ with .Params.categories }}
-          <div class="card-categories">
-            {{ range first 1 . }}
-            <span class="category-badge">{{ . }}</span>
-            {{ end }}
-          </div>
-          {{ end }}
-          
-          <h3 class="card-title">
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-          </h3>
-          
-          <p class="card-description">
-            {{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 100 }}{{ end }}
-          </p>
-          
-          <div class="card-meta">
-            {{ if gt .Date.Year 1 }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
-            <span class="meta-separator">·</span>{{ end }}
-            <span>{{ .ReadingTime }} min</span>
-          </div>
+  <section class="py-5">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">Latest Articles</h2>
+        <a href="{{ .Site.BaseURL }}posts/" class="text-decoration-none d-flex align-items-center gap-1">
+          View all <i class="bi bi-arrow-right"></i>
+        </a>
+      </div>
+      <div class="row g-4">
+        {{ range first 3 ($posts.ByDate.Reverse) }}
+        <div class="col-md-6 col-lg-4">
+          <article class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+              {{ with .Params.categories }}
+              <div class="mb-2">
+                {{ range first 1 . }}
+                <span class="badge bg-primary">{{ . }}</span>
+                {{ end }}
+              </div>
+              {{ end }}
+              
+              <h5 class="card-title">
+                <a href="{{ .Permalink }}" class="text-decoration-none text-body">{{ .Title }}</a>
+              </h5>
+              
+              <p class="card-text text-body-secondary small">
+                {{ with .Description }}{{ . | truncate 100 }}{{ else }}{{ .Summary | truncate 100 }}{{ end }}
+              </p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pt-0">
+              <small class="text-body-tertiary">
+                {{ if gt .Date.Year 1 }}{{ .Date.Format "Jan 2, 2006" }} · {{ end }}{{ .ReadingTime }} min read
+              </small>
+            </div>
+          </article>
         </div>
-        <a href="{{ .Permalink }}" class="card-link" aria-label="Read {{ .Title }}"></a>
-      </article>
-      {{ end }}
+        {{ end }}
+      </div>
     </div>
   </section>
   {{ end }}
   
   <!-- CTA Section -->
-  <section class="cta-section">
-    <div class="cta-content">
-      <h2>Stay Updated</h2>
-      <p>Get the latest insights on technology and finance delivered to your inbox.</p>
-      <div class="cta-actions">
+  <section class="py-5 bg-primary text-white">
+    <div class="container text-center py-4">
+      <h2 class="fw-bold mb-3">Stay Updated</h2>
+      <p class="mb-4 opacity-75">Get the latest insights on technology and finance delivered to your inbox.</p>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
         {{ with .Site.Params.linkedin }}
-        <a href="https://linkedin.com/in/{{ . }}" class="btn btn-primary" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-          </svg>
-          Follow on LinkedIn
+        <a href="https://linkedin.com/in/{{ . }}" class="btn btn-light d-flex align-items-center gap-2" target="_blank" rel="noopener">
+          <i class="bi bi-linkedin"></i> Follow on LinkedIn
         </a>
         {{ end }}
         {{ with .Site.Params.twitter }}
-        <a href="https://twitter.com/{{ . }}" class="btn btn-secondary" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
-          </svg>
-          Follow on Twitter
+        <a href="https://twitter.com/{{ . }}" class="btn btn-outline-light d-flex align-items-center gap-2" target="_blank" rel="noopener">
+          <i class="bi bi-twitter-x"></i> Follow on Twitter
         </a>
         {{ end }}
       </div>

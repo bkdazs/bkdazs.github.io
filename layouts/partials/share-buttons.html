@@ -1,0 +1,79 @@
+{{/* Social Share Buttons - Enhanced with Font Awesome */}}
+{{ $title := .Title | htmlEscape }}
+{{ $url := .Permalink }}
+{{ $description := .Description | default .Summary | truncate 100 | htmlEscape }}
+
+<div class="share-buttons d-flex align-items-center gap-1">
+  <!-- Twitter/X -->
+  <a href="https://twitter.com/intent/tweet?text={{ $title }}&url={{ $url }}" 
+     target="_blank" rel="noopener noreferrer" 
+     class="btn btn-sm btn-outline-secondary btn-twitter rounded-circle p-0 d-flex align-items-center justify-content-center" 
+     style="width: 32px; height: 32px;"
+     title="Share on X" aria-label="Share on X">
+    <i class="fa-brands fa-x-twitter"></i>
+  </a>
+  
+  <!-- LinkedIn -->
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ $url }}&title={{ $title }}&summary={{ $description }}" 
+     target="_blank" rel="noopener noreferrer" 
+     class="btn btn-sm btn-outline-secondary btn-linkedin rounded-circle p-0 d-flex align-items-center justify-content-center" 
+     style="width: 32px; height: 32px;"
+     title="Share on LinkedIn" aria-label="Share on LinkedIn">
+    <i class="fa-brands fa-linkedin-in"></i>
+  </a>
+  
+  <!-- Facebook -->
+  <a href="https://www.facebook.com/sharer/sharer.php?u={{ $url }}&quote={{ $title }}" 
+     target="_blank" rel="noopener noreferrer" 
+     class="btn btn-sm btn-outline-secondary btn-facebook rounded-circle p-0 d-flex align-items-center justify-content-center" 
+     style="width: 32px; height: 32px;"
+     title="Share on Facebook" aria-label="Share on Facebook">
+    <i class="fa-brands fa-facebook-f"></i>
+  </a>
+  
+  <!-- WhatsApp -->
+  <a href="https://api.whatsapp.com/send?text={{ $title }}%20{{ $url }}" 
+     target="_blank" rel="noopener noreferrer" 
+     class="btn btn-sm btn-outline-secondary btn-whatsapp rounded-circle p-0 d-flex align-items-center justify-content-center" 
+     style="width: 32px; height: 32px;"
+     title="Share on WhatsApp" aria-label="Share on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+  
+  <!-- Reddit -->
+  <a href="https://reddit.com/submit?url={{ $url }}&title={{ $title }}" 
+     target="_blank" rel="noopener noreferrer" 
+     class="btn btn-sm btn-outline-secondary btn-reddit rounded-circle p-0 d-flex align-items-center justify-content-center" 
+     style="width: 32px; height: 32px;"
+     title="Share on Reddit" aria-label="Share on Reddit">
+    <i class="fa-brands fa-reddit-alien"></i>
+  </a>
+  
+  <!-- Copy Link -->
+  <button type="button" 
+          class="btn btn-sm btn-outline-secondary rounded-circle p-0 d-flex align-items-center justify-content-center share-copy-btn" 
+          style="width: 32px; height: 32px;"
+          data-url="{{ $url }}"
+          title="Copy link" aria-label="Copy link">
+    <i class="fa-solid fa-link"></i>
+  </button>
+</div>
+
+<script>
+document.querySelectorAll('.share-copy-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var url = this.getAttribute('data-url') || window.location.href;
+    navigator.clipboard.writeText(url).then(function() {
+      var icon = btn.querySelector('i');
+      icon.className = 'fa-solid fa-check';
+      btn.classList.remove('btn-outline-secondary');
+      btn.classList.add('btn-success');
+      setTimeout(function() {
+        icon.className = 'fa-solid fa-link';
+        btn.classList.remove('btn-success');
+        btn.classList.add('btn-outline-secondary');
+      }, 2000);
+    });
+  });
+});
+</script>
