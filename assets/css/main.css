@@ -18,15 +18,27 @@
 body {
   font-family: var(--font-sans);
   overflow-x: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow selection in form elements */
+input, textarea, select {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 code, pre, kbd {
   font-family: var(--font-mono);
 }
 
-/* Selection color */
+/* Disable selection color */
 ::selection {
-  background-color: rgba(var(--bs-primary-rgb), 0.3);
+  background-color: transparent;
 }
 
 /* Focus visible for accessibility */

@@ -313,5 +313,126 @@
       });
     });
   </script>
+  
+  <!-- Content Protection Script -->
+  <script>
+  (function() {
+    'use strict';
+    
+    // Disable right-click context menu
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      return false;
+    });
+    
+    // Disable text selection
+    document.addEventListener('selectstart', function(e) {
+      // Allow selection in input fields and textareas
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        return true;
+      }
+      e.preventDefault();
+      return false;
+    });
+    
+    // Disable copy
+    document.addEventListener('copy', function(e) {
+      e.preventDefault();
+      return false;
+    });
+    
+    // Disable cut
+    document.addEventListener('cut', function(e) {
+      e.preventDefault();
+      return false;
+    });
+    
+    // Disable drag
+    document.addEventListener('dragstart', function(e) {
+      e.preventDefault();
+      return false;
+    });
+    
+    // Disable keyboard shortcuts for copy/cut/select all/print/save
+    document.addEventListener('keydown', function(e) {
+      // Ctrl/Cmd + C (Copy)
+      if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl/Cmd + X (Cut)
+      if ((e.ctrlKey || e.metaKey) && e.key === 'x') {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl/Cmd + A (Select All)
+      if ((e.ctrlKey || e.metaKey) && e.key === 'a') {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl/Cmd + P (Print)
+      if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl/Cmd + S (Save)
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl/Cmd + U (View Source)
+      if ((e.ctrlKey || e.metaKey) && e.key === 'u') {
+        e.preventDefault();
+        return false;
+      }
+      // F12 (Developer Tools)
+      if (e.key === 'F12') {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl/Cmd + Shift + I (Developer Tools)
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'I') {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl/Cmd + Shift + J (Console)
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'J') {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl/Cmd + Shift + C (Inspect Element)
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'C') {
+        e.preventDefault();
+        return false;
+      }
+    });
+    
+    // Disable image dragging
+    document.querySelectorAll('img').forEach(function(img) {
+      img.setAttribute('draggable', 'false');
+    });
+    
+    // Apply to dynamically added images
+    const observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        mutation.addedNodes.forEach(function(node) {
+          if (node.tagName === 'IMG') {
+            node.setAttribute('draggable', 'false');
+          }
+          if (node.querySelectorAll) {
+            node.querySelectorAll('img').forEach(function(img) {
+              img.setAttribute('draggable', 'false');
+            });
+          }
+        });
+      });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    
+    // Console warning message
+    console.log('%c⚠️ Content Protected', 'font-size: 24px; color: #dc3545; font-weight: bold;');
+    console.log('%cThis website\'s content is protected by copyright. Unauthorized copying or reproduction is prohibited.', 'font-size: 14px; color: #6c757d;');
+  })();
+  </script>
 </body>
 </html>
