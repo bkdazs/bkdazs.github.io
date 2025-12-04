@@ -29,11 +29,6 @@
             <i class="fa-solid fa-newspaper me-1 d-lg-none d-xl-inline"></i> Blog
           </a>
         </li>
-        <li class="nav-item">
-          <a href="{{ .Site.BaseURL }}about/" class="nav-link {{ if eq .Title "About" }}active{{ end }}">
-            <i class="fa-solid fa-user me-1 d-lg-none d-xl-inline"></i> About
-          </a>
-        </li>
       </ul>
       
       <!-- Right Actions -->
@@ -93,9 +88,6 @@
       </a>
       <a href="{{ .Site.BaseURL }}posts/" class="nav-link px-0 py-2 {{ if eq .Section "posts" }}active fw-semibold{{ end }}">
         <i class="fa-solid fa-newspaper me-2"></i> Blog
-      </a>
-      <a href="{{ .Site.BaseURL }}about/" class="nav-link px-0 py-2 {{ if eq .Title "About" }}active fw-semibold{{ end }}">
-        <i class="fa-solid fa-user me-2"></i> About
       </a>
     </nav>
     
