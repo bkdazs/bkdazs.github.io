@@ -3,45 +3,70 @@
     <!-- Logo -->
     <a href="{{ .Site.BaseURL }}" class="navbar-brand d-flex align-items-center gap-2">
       <img src="/images/logo.png" alt="{{ .Site.Title }}" height="36" class="d-inline-block">
-      <!-- <span class="fw-bold text-primary d-none d-sm-inline">{{ .Site.Title }}</span> -->
     </a>
     
-    <!-- Mobile Toggle -->
-    <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#navOffcanvas" aria-controls="navOffcanvas" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- Mobile Toggle (Hamburger) -->
+    <button class="navbar-toggler border-0" type="button" 
+            data-bs-toggle="offcanvas" 
+            data-bs-target="#mobileNavOffcanvas" 
+            aria-controls="mobileNavOffcanvas" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation">
       <i class="bi bi-list fs-4"></i>
     </button>
     
-    <!-- Desktop Navigation -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a href="{{ .Site.BaseURL }}" class="nav-link {{ if .IsHome }}active{{ end }}">
-            <i class="fa-solid fa-house me-1 d-lg-none d-xl-inline"></i> Home
+    <!-- Desktop Navigation with Dropdowns -->
+    <nav class="collapse navbar-collapse" id="navbarNav" aria-label="Main navigation">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0" role="menubar">
+        {{ range .Site.Data.menu.main }}
+        <li class="nav-item dropdown" role="none">
+          {{ if .submenu }}
+          <a href="{{ .url }}" 
+             class="nav-link dropdown-toggle d-flex align-items-center gap-1" 
+             role="menuitem"
+             aria-haspopup="true" 
+             aria-expanded="false"
+             data-bs-toggle="dropdown"
+             data-bs-auto-close="outside">
+            <i class="{{ .icon }} me-1 d-lg-none d-xl-inline"></i>
+            {{ .name }}
           </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ .Site.BaseURL }}docs/" class="nav-link {{ if eq .Section "docs" }}active{{ end }}">
-            <i class="fa-solid fa-book me-1 d-lg-none d-xl-inline"></i> Docs
+          <ul class="dropdown-menu dropdown-menu-animated" role="menu" aria-label="{{ .name }} submenu">
+            {{ range .submenu }}
+            <li role="none">
+              <a href="{{ .url }}" class="dropdown-item d-flex align-items-center gap-2" role="menuitem">
+                <i class="{{ .icon }} text-primary"></i>
+                <span>{{ .name }}</span>
+              </a>
+            </li>
+            {{ end }}
+          </ul>
+          {{ else }}
+          <a href="{{ .url }}" class="nav-link" role="menuitem">
+            <i class="{{ .icon }} me-1 d-lg-none d-xl-inline"></i>
+            {{ .name }}
           </a>
+          {{ end }}
         </li>
-        <li class="nav-item">
-          <a href="{{ .Site.BaseURL }}posts/" class="nav-link {{ if eq .Section "posts" }}active{{ end }}">
-            <i class="fa-solid fa-newspaper me-1 d-lg-none d-xl-inline"></i> Blog
-          </a>
-        </li>
+        {{ end }}
       </ul>
       
       <!-- Right Actions -->
       <div class="d-flex align-items-center gap-1">
         <!-- Search Button -->
-        <button class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-2 px-3" data-bs-toggle="modal" data-bs-target="#searchModal" aria-label="Search">
+        <button class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-2 px-3" 
+                data-bs-toggle="modal" 
+                data-bs-target="#searchModal" 
+                aria-label="Search">
           <i class="fa-solid fa-magnifying-glass"></i>
           <span class="d-none d-md-inline">Search</span>
           <kbd class="d-none d-lg-inline-block ms-2 px-1 bg-body-secondary rounded small">⌘K</kbd>
         </button>
         
         <!-- Theme Toggle -->
-        <button class="btn btn-link text-body p-2 theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <button class="btn btn-link text-body p-2 theme-toggle" 
+                onclick="toggleTheme()" 
+                aria-label="Toggle theme">
           <i class="bi bi-sun-fill"></i>
           <i class="bi bi-moon-fill d-none"></i>
         </button>
@@ -58,12 +83,12 @@
         </a>
         {{ end }}
       </div>
-    </div>
+    </nav>
   </div>
 </header>
 
-<!-- Mobile Offcanvas Navigation -->
-<div class="offcanvas offcanvas-end d-lg-none" tabindex="-1" id="navOffcanvas" aria-labelledby="navOffcanvasLabel">
+<!-- Mobile Offcanvas Navigation with Expandable Submenus -->
+<div class="offcanvas offcanvas-end d-lg-none" tabindex="-1" id="mobileNavOffcanvas" aria-labelledby="mobileNavOffcanvasLabel">
   <div class="offcanvas-header border-bottom">
     <a href="{{ .Site.BaseURL }}" class="d-flex align-items-center gap-2 text-decoration-none">
       <img src="/favicon.svg" alt="{{ .Site.Title }}" height="32">
@@ -74,25 +99,57 @@
   <div class="offcanvas-body">
     <!-- Mobile Search -->
     <div class="mb-3">
-      <button class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center gap-2" data-bs-toggle="modal" data-bs-target="#searchModal" data-bs-dismiss="offcanvas">
+      <button class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center gap-2" 
+              data-bs-toggle="modal" 
+              data-bs-target="#searchModal" 
+              data-bs-dismiss="offcanvas">
         <i class="fa-solid fa-magnifying-glass"></i> Search articles...
       </button>
     </div>
     
-    <nav class="nav flex-column">
-      <a href="{{ .Site.BaseURL }}" class="nav-link px-0 py-2 {{ if .IsHome }}active fw-semibold{{ end }}">
-        <i class="fa-solid fa-house me-2"></i> Home
-      </a>
-      <a href="{{ .Site.BaseURL }}docs/" class="nav-link px-0 py-2 {{ if eq .Section "docs" }}active fw-semibold{{ end }}">
-        <i class="fa-solid fa-book me-2"></i> Documentation
-      </a>
-      <a href="{{ .Site.BaseURL }}posts/" class="nav-link px-0 py-2 {{ if eq .Section "posts" }}active fw-semibold{{ end }}">
-        <i class="fa-solid fa-newspaper me-2"></i> Blog
-      </a>
+    <!-- Mobile Navigation Menu -->
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <ul class="nav flex-column" role="menubar">
+        {{ range .Site.Data.menu.main }}
+        <li class="nav-item mobile-nav-item" role="none">
+          {{ if .submenu }}
+          <div class="d-flex align-items-center">
+            <a href="{{ .url }}" class="nav-link flex-grow-1 px-0 py-2" role="menuitem">
+              <i class="{{ .icon }} me-2"></i> {{ .name }}
+            </a>
+            <button class="btn btn-link text-body p-2 mobile-submenu-toggle" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#mobile-submenu-{{ .name | urlize }}"
+                    aria-expanded="false"
+                    aria-controls="mobile-submenu-{{ .name | urlize }}"
+                    aria-label="Expand {{ .name }} submenu">
+              <i class="bi bi-chevron-down submenu-chevron"></i>
+            </button>
+          </div>
+          <ul class="collapse mobile-submenu ps-4" id="mobile-submenu-{{ .name | urlize }}" role="menu">
+            {{ range .submenu }}
+            <li role="none">
+              <a href="{{ .url }}" class="nav-link px-0 py-2 d-flex align-items-center gap-2" role="menuitem" data-bs-dismiss="offcanvas">
+                <i class="{{ .icon }} text-primary small"></i>
+                <span>{{ .name }}</span>
+              </a>
+            </li>
+            {{ end }}
+          </ul>
+          {{ else }}
+          <a href="{{ .url }}" class="nav-link px-0 py-2" role="menuitem" data-bs-dismiss="offcanvas">
+            <i class="{{ .icon }} me-2"></i> {{ .name }}
+          </a>
+          {{ end }}
+        </li>
+        {{ end }}
+      </ul>
     </nav>
     
     <hr>
     
+    <!-- Theme Toggle -->
     <div class="d-flex justify-content-between align-items-center">
       <span class="text-body-secondary small">Theme</span>
       <button class="btn btn-outline-secondary btn-sm theme-toggle" onclick="toggleTheme()">
@@ -159,10 +216,10 @@
   </div>
 </div>
 
-<!-- Search Script -->
+<!-- Keyboard Navigation & Dropdown Scripts -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Keyboard shortcut to open search
+  // Keyboard shortcut to open search (Cmd+K or Ctrl+K)
   document.addEventListener('keydown', function(e) {
     if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
       e.preventDefault();
@@ -173,6 +230,82 @@ document.addEventListener('DOMContentLoaded', function() {
   // Focus input when modal opens
   document.getElementById('searchModal').addEventListener('shown.bs.modal', function() {
     document.getElementById('searchInput').focus();
+  });
+  
+  // Desktop dropdown keyboard navigation
+  const dropdownToggles = document.querySelectorAll('.navbar-nav .dropdown-toggle');
+  
+  dropdownToggles.forEach(toggle => {
+    const dropdownMenu = toggle.nextElementSibling;
+    const menuItems = dropdownMenu ? dropdownMenu.querySelectorAll('.dropdown-item') : [];
+    let currentIndex = -1;
+    
+    // Show dropdown on focus
+    toggle.addEventListener('focus', function() {
+      const dropdown = bootstrap.Dropdown.getOrCreateInstance(this);
+      dropdown.show();
+    });
+    
+    // Keyboard navigation within dropdown
+    toggle.addEventListener('keydown', function(e) {
+      const dropdown = bootstrap.Dropdown.getOrCreateInstance(this);
+      
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        dropdown.toggle();
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        dropdown.show();
+        if (menuItems.length > 0) {
+          currentIndex = 0;
+          menuItems[currentIndex].focus();
+        }
+      } else if (e.key === 'Escape') {
+        dropdown.hide();
+        this.focus();
+      }
+    });
+    
+    // Arrow key navigation in dropdown menu
+    menuItems.forEach((item, index) => {
+      item.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          currentIndex = (index + 1) % menuItems.length;
+          menuItems[currentIndex].focus();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          currentIndex = (index - 1 + menuItems.length) % menuItems.length;
+          menuItems[currentIndex].focus();
+        } else if (e.key === 'Escape') {
+          const dropdown = bootstrap.Dropdown.getOrCreateInstance(toggle);
+          dropdown.hide();
+          toggle.focus();
+        } else if (e.key === 'Tab' && !e.shiftKey && index === menuItems.length - 1) {
+          const dropdown = bootstrap.Dropdown.getOrCreateInstance(toggle);
+          dropdown.hide();
+        }
+      });
+    });
+  });
+  
+  // Mobile submenu chevron rotation
+  const mobileSubmenuToggles = document.querySelectorAll('.mobile-submenu-toggle');
+  mobileSubmenuToggles.forEach(toggle => {
+    const targetId = toggle.getAttribute('data-bs-target');
+    const target = document.querySelector(targetId);
+    
+    if (target) {
+      target.addEventListener('show.bs.collapse', function() {
+        toggle.querySelector('.submenu-chevron').style.transform = 'rotate(180deg)';
+        toggle.setAttribute('aria-expanded', 'true');
+      });
+      
+      target.addEventListener('hide.bs.collapse', function() {
+        toggle.querySelector('.submenu-chevron').style.transform = 'rotate(0deg)';
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    }
   });
 });
 </script>

@@ -12,10 +12,10 @@
       </p>
       <div class="d-flex flex-wrap justify-content-center gap-3">
         <a href="{{ .Site.BaseURL }}docs/" class="btn btn-primary btn-lg d-flex align-items-center gap-2">
-          <i class="bi bi-book"></i> Browse Docs
+          <i class="bi bi-book"></i> Browse Documentation
         </a>
-        <a href="{{ .Site.BaseURL }}posts/" class="btn btn-outline-secondary btn-lg d-flex align-items-center gap-2">
-          <i class="bi bi-journal-text"></i> Read Blog
+        <a href="{{ .Site.BaseURL }}docs/finance/" class="btn btn-outline-secondary btn-lg d-flex align-items-center gap-2">
+          <i class="bi bi-graph-up"></i> Finance Guides
         </a>
       </div>
     </div>
@@ -56,8 +56,8 @@
               <div class="bg-info bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
                 <i class="bi bi-code-slash text-info fs-3"></i>
               </div>
-              <h5 class="card-title text-body">Programming</h5>
-              <p class="card-text text-body-secondary small">Best practices, tutorials, and insights across multiple languages.</p>
+              <h5 class="card-title text-body">Programming & FAANG Prep</h5>
+              <p class="card-text text-body-secondary small">DS & Algo, System Design, and interview preparation resources.</p>
             </div>
           </a>
         </div>
@@ -69,31 +69,31 @@
                 <i class="bi bi-currency-bitcoin text-warning fs-3"></i>
               </div>
               <h5 class="card-title text-body">Blockchain & Crypto</h5>
-              <p class="card-text text-body-secondary small">Cryptocurrency, DeFi, and blockchain technology explained.</p>
+              <p class="card-text text-body-secondary small">Cryptocurrency, DeFi, smart contracts, and blockchain technology.</p>
             </div>
           </a>
         </div>
         
         <div class="col-md-6 col-lg-4">
-          <a href="{{ .Site.BaseURL }}docs/data-science/" class="card h-100 text-decoration-none border-0 shadow-sm">
+          <a href="{{ .Site.BaseURL }}docs/finance/personal-finance/" class="card h-100 text-decoration-none border-0 shadow-sm">
             <div class="card-body text-center p-4">
               <div class="bg-danger bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
-                <i class="bi bi-graph-up text-danger fs-3"></i>
+                <i class="bi bi-wallet2 text-danger fs-3"></i>
               </div>
-              <h5 class="card-title text-body">Data Science</h5>
-              <p class="card-text text-body-secondary small">Analytics, visualization, and data-driven decision making.</p>
+              <h5 class="card-title text-body">Personal Finance</h5>
+              <p class="card-text text-body-secondary small">Budgeting, saving, investing basics, and financial planning.</p>
             </div>
           </a>
         </div>
         
         <div class="col-md-6 col-lg-4">
-          <a href="{{ .Site.BaseURL }}posts/" class="card h-100 text-decoration-none border-0 shadow-sm">
+          <a href="{{ .Site.BaseURL }}docs/finance/stock-market/" class="card h-100 text-decoration-none border-0 shadow-sm">
             <div class="card-body text-center p-4">
               <div class="bg-secondary bg-opacity-10 rounded-circle d-inline-flex p-3 mb-3">
-                <i class="bi bi-journal-richtext text-secondary fs-3"></i>
+                <i class="bi bi-graph-up-arrow text-secondary fs-3"></i>
               </div>
-              <h5 class="card-title text-body">Latest Posts</h5>
-              <p class="card-text text-body-secondary small">Fresh articles, tutorials, and insights published regularly.</p>
+              <h5 class="card-title text-body">Stock Market</h5>
+              <p class="card-text text-body-secondary small">Trading strategies, technical analysis, and market insights.</p>
             </div>
           </a>
         </div>
@@ -101,19 +101,19 @@
     </div>
   </section>
   
-  <!-- Latest Articles -->
-  {{ $posts := where site.RegularPages "Section" "posts" }}
-  {{ if $posts }}
+  <!-- Latest Articles from Docs -->
+  {{ $docs := where site.RegularPages "Section" "docs" }}
+  {{ if $docs }}
   <section class="py-5">
     <div class="container">
       <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold mb-0">Latest Articles</h2>
-        <a href="{{ .Site.BaseURL }}posts/" class="text-decoration-none d-flex align-items-center gap-1">
+        <a href="{{ .Site.BaseURL }}docs/" class="text-decoration-none d-flex align-items-center gap-1">
           View all <i class="bi bi-arrow-right"></i>
         </a>
       </div>
       <div class="row g-4">
-        {{ range first 3 ($posts.ByDate.Reverse) }}
+        {{ range first 6 ($docs.ByDate.Reverse) }}
         <div class="col-md-6 col-lg-4">
           <article class="card h-100 border-0 shadow-sm">
             <div class="card-body">

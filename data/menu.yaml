@@ -1,0 +1,134 @@
+# Navigation Menu Configuration
+# Data-driven menu structure for header and mobile navigation
+
+main:
+  - name: "Home"
+    url: "/"
+    icon: "fa-solid fa-house"
+    weight: 1
+    submenu:
+      - name: "Latest"
+        url: "/"
+        icon: "fa-solid fa-clock"
+      - name: "Popular"
+        url: "/tags/"
+        icon: "fa-solid fa-fire"
+      - name: "Tags"
+        url: "/tags/"
+        icon: "fa-solid fa-tags"
+
+  - name: "AI"
+    url: "/docs/ai-ml/"
+    icon: "fa-solid fa-brain"
+    weight: 2
+    submenu:
+      - name: "Generative AI"
+        url: "/docs/ai-ml/"
+        icon: "fa-solid fa-wand-magic-sparkles"
+      - name: "Models & Architectures"
+        url: "/docs/ai-ml/"
+        icon: "fa-solid fa-diagram-project"
+      - name: "Prompt Engineering"
+        url: "/docs/ai-ml/"
+        icon: "fa-solid fa-terminal"
+      - name: "Research Summaries"
+        url: "/docs/ai-ml/"
+        icon: "fa-solid fa-flask"
+      - name: "Tutorials"
+        url: "/docs/ai-ml/"
+        icon: "fa-solid fa-graduation-cap"
+
+  - name: "Finance"
+    url: "/docs/finance/"
+    icon: "fa-solid fa-chart-line"
+    weight: 3
+    submenu:
+      - name: "Personal Finance"
+        url: "/docs/finance/personal-finance/"
+        icon: "fa-solid fa-wallet"
+      - name: "Investing"
+        url: "/docs/finance/investments-asset-management/"
+        icon: "fa-solid fa-coins"
+      - name: "Cryptocurrency"
+        url: "/docs/crypto/"
+        icon: "fa-brands fa-bitcoin"
+      - name: "Markets"
+        url: "/docs/finance/stock-market/"
+        icon: "fa-solid fa-chart-candlestick"
+      - name: "Taxes & Accounting"
+        url: "/docs/finance/accounting-financial-reporting/"
+        icon: "fa-solid fa-calculator"
+
+  - name: "Blockchain"
+    url: "/docs/crypto/"
+    icon: "fa-solid fa-cubes"
+    weight: 4
+    submenu:
+      - name: "Smart Contracts"
+        url: "/docs/crypto/"
+        icon: "fa-solid fa-file-contract"
+      - name: "Layer 1 & 2"
+        url: "/docs/crypto/"
+        icon: "fa-solid fa-layer-group"
+      - name: "DeFi"
+        url: "/docs/crypto/"
+        icon: "fa-solid fa-landmark"
+      - name: "NFTs"
+        url: "/docs/crypto/"
+        icon: "fa-solid fa-image"
+      - name: "Security"
+        url: "/docs/crypto/"
+        icon: "fa-solid fa-shield-halved"
+
+  - name: "FAANG Prep"
+    url: "/docs/programming/"
+    icon: "fa-solid fa-code"
+    weight: 5
+    submenu:
+      - name: "DS & Algo"
+        url: "/docs/programming/"
+        icon: "fa-solid fa-sitemap"
+      - name: "System Design"
+        url: "/docs/programming/"
+        icon: "fa-solid fa-server"
+      - name: "Behavioral"
+        url: "/docs/programming/"
+        icon: "fa-solid fa-users"
+      - name: "Mock Interviews"
+        url: "/docs/programming/"
+        icon: "fa-solid fa-microphone"
+      - name: "LeetCode Patterns"
+        url: "/docs/programming/"
+        icon: "fa-solid fa-puzzle-piece"
+
+# Most visited categories for sidebar
+mostVisited:
+  - name: "DS & Algo"
+    url: "/docs/programming/"
+    icon: "fa-solid fa-sitemap"
+    count: 0  # Set dynamically if analytics available
+
+  - name: "Personal Finance"
+    url: "/docs/finance/personal-finance/"
+    icon: "fa-solid fa-wallet"
+    count: 0
+
+  - name: "Investing"
+    url: "/docs/finance/investments-asset-management/"
+    icon: "fa-solid fa-coins"
+    count: 0
+
+  - name: "Generative AI"
+    url: "/docs/ai-ml/"
+    icon: "fa-solid fa-wand-magic-sparkles"
+    count: 0
+
+  - name: "Stock Market"
+    url: "/docs/finance/stock-market/"
+    icon: "fa-solid fa-chart-line"
+    count: 0
+
+  - name: "System Design"
+    url: "/docs/programming/"
+    icon: "fa-solid fa-server"
+    count: 0

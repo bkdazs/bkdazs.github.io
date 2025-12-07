@@ -2,6 +2,22 @@
 <aside class="col-lg-3 col-xl-2 d-none d-lg-block sidebar-wrapper border-end bg-body-tertiary">
   <div class="sidebar-sticky position-sticky pt-4" style="top: 70px; height: calc(100vh - 70px); overflow-y: auto;">
     <nav class="nav flex-column">
+      <!-- Most Visited / Top Categories Section -->
+      <h6 class="sidebar-heading px-3 mb-2 text-body-secondary">
+        <span><i class="bi bi-fire me-1"></i> Most Visited</span>
+      </h6>
+      <ul class="nav flex-column mb-3">
+        {{ range .Site.Data.menu.mostVisited }}
+        <li class="nav-item">
+          <a href="{{ .url }}" class="nav-link d-flex align-items-center gap-2">
+            <i class="{{ .icon }} text-primary"></i>
+            <span>{{ .name }}</span>
+            {{ if .count }}<span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill ms-auto">{{ .count }}</span>{{ end }}
+          </a>
+        </li>
+        {{ end }}
+      </ul>
+      
       <!-- Quick Links -->
       <h6 class="sidebar-heading px-3 mb-2 text-body-secondary">
         <span>Navigation</span>
@@ -13,13 +29,8 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ .Site.BaseURL }}posts/" class="nav-link d-flex align-items-center gap-2 {{ if eq .Section "posts" }}active{{ end }}">
-            <i class="bi bi-journal-text"></i> All Posts
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ .Site.BaseURL }}about/" class="nav-link d-flex align-items-center gap-2 {{ if eq .Title "About" }}active{{ end }}">
-            <i class="bi bi-info-circle"></i> About
+          <a href="{{ .Site.BaseURL }}docs/" class="nav-link d-flex align-items-center gap-2 {{ if eq .Section "docs" }}active{{ end }}">
+            <i class="bi bi-journal-text"></i> All Docs
           </a>
         </li>
       </ul>
@@ -95,21 +106,32 @@
   </div>
   <div class="offcanvas-body">
     <nav class="nav flex-column">
+      <!-- Most Visited / Top Categories Section -->
+      <h6 class="sidebar-heading mb-2 text-body-secondary">
+        <i class="bi bi-fire me-1"></i> Most Visited
+      </h6>
+      <ul class="nav flex-column mb-3">
+        {{ range .Site.Data.menu.mostVisited }}
+        <li class="nav-item">
+          <a href="{{ .url }}" class="nav-link d-flex align-items-center gap-2" data-bs-dismiss="offcanvas">
+            <i class="{{ .icon }} text-primary"></i>
+            <span>{{ .name }}</span>
+          </a>
+        </li>
+        {{ end }}
+      </ul>
+      
       <!-- Quick Links -->
+      <h6 class="sidebar-heading mb-2 text-body-secondary">Quick Links</h6>
       <ul class="nav flex-column mb-3">
         <li class="nav-item">
-          <a href="{{ .Site.BaseURL }}" class="nav-link d-flex align-items-center gap-2 {{ if .IsHome }}active{{ end }}">
+          <a href="{{ .Site.BaseURL }}" class="nav-link d-flex align-items-center gap-2 {{ if .IsHome }}active{{ end }}" data-bs-dismiss="offcanvas">
             <i class="bi bi-house"></i> Home
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ .Site.BaseURL }}posts/" class="nav-link d-flex align-items-center gap-2">
-            <i class="bi bi-journal-text"></i> All Posts
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ .Site.BaseURL }}about/" class="nav-link d-flex align-items-center gap-2">
-            <i class="bi bi-info-circle"></i> About
+          <a href="{{ .Site.BaseURL }}docs/" class="nav-link d-flex align-items-center gap-2" data-bs-dismiss="offcanvas">
+            <i class="bi bi-journal-text"></i> All Docs
           </a>
         </li>
       </ul>

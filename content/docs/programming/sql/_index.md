@@ -1,7 +1,7 @@
 ---
-title: "SQL"
-description: "SQL queries, optimization, and database concepts"
-weight: 4
+title: "RDBMS & SQL"
+description: "SQL fundamentals, advanced queries, and database design for interviews"
+weight: 8
 ---
 
-SQL queries, optimization, and database concepts
+SQL fundamentals, advanced queries, and database design for interviews
