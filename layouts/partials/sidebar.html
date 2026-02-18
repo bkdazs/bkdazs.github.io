@@ -17,6 +17,9 @@
         </li>
         {{ end }}
       </ul>
+
+      <!-- AdSense Sidebar -->
+      {{ partial "adsense/sidebar.html" . }}
       
       <!-- Quick Links -->
       <h6 class="sidebar-heading px-3 mb-2 text-body-secondary">
@@ -34,34 +37,6 @@
           </a>
         </li>
       </ul>
-      
-      <!-- Categories -->
-      {{ $categories := .Site.Taxonomies.categories }}
-      {{ if $categories }}
-      <h6 class="sidebar-heading px-3 mb-2 text-body-secondary">
-        <span>Categories</span>
-      </h6>
-      <ul class="nav flex-column mb-3">
-        {{ range $name, $posts := $categories }}
-        <li class="nav-item">
-          <a href="{{ $.Site.BaseURL }}categories/{{ $name | urlize }}/" class="nav-link d-flex align-items-center justify-content-between">
-            <span class="d-flex align-items-center gap-2">
-              {{ if eq $name "finance" }}<i class="bi bi-currency-dollar"></i>
-              {{ else if eq $name "ai-ml" }}<i class="bi bi-cpu"></i>
-              {{ else if eq $name "programming" }}<i class="bi bi-code-slash"></i>
-              {{ else if eq $name "technology" }}<i class="bi bi-laptop"></i>
-              {{ else if or (eq $name "blockchain") (eq $name "crypto") }}<i class="bi bi-box"></i>
-              {{ else if eq $name "data-science" }}<i class="bi bi-graph-up"></i>
-              {{ else }}<i class="bi bi-folder"></i>
-              {{ end }}
-              {{ $name | humanize | title }}
-            </span>
-            <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill">{{ len $posts }}</span>
-          </a>
-        </li>
-        {{ end }}
-      </ul>
-      {{ end }}
       
       <!-- Tags -->
       {{ $tags := .Site.Taxonomies.tags }}
@@ -136,34 +111,6 @@
         </li>
       </ul>
       
-      <!-- Categories -->
-      {{ $categories := .Site.Taxonomies.categories }}
-      {{ if $categories }}
-      <h6 class="sidebar-heading mb-2 text-body-secondary">Categories</h6>
-      <ul class="nav flex-column mb-3">
-        {{ range $name, $posts := $categories }}
-        <li class="nav-item">
-          <a href="{{ $.Site.BaseURL }}categories/{{ $name | urlize }}/" class="nav-link d-flex align-items-center justify-content-between">
-            <span>{{ $name | humanize | title }}</span>
-            <span class="badge bg-secondary rounded-pill">{{ len $posts }}</span>
-          </a>
-        </li>
-        {{ end }}
-      </ul>
-      {{ end }}
-      
-      <!-- Tags -->
-      {{ $tags := .Site.Taxonomies.tags }}
-      {{ if $tags }}
-      <h6 class="sidebar-heading mb-2 text-body-secondary">Tags</h6>
-      <div class="d-flex flex-wrap gap-1 mb-3">
-        {{ range first 10 $tags.ByCount }}
-        <a href="{{ $.Site.BaseURL }}tags/{{ .Name | urlize }}/" class="badge bg-primary text-decoration-none">
-          {{ .Name }}
-        </a>
-        {{ end }}
-      </div>
-      {{ end }}
-    </nav>
+      </nav>
   </div>
 </div>

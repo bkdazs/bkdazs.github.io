@@ -1,0 +1,6 @@
+{{ if .Site.Params.adsense.enabled }}
+  {{ with .Site.Params.adsense.client }}
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ . }}"
+     crossorigin="anonymous"></script>
+  {{ end }}
+{{ end }}

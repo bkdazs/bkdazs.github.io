@@ -25,6 +25,9 @@
 </script>
 {{- end -}}
 
+{{- /* AdSense Global Script */ -}}
+{{ partial "adsense/script.html" . }}
+
 {{- /* JSON-LD Structured Data for Articles */ -}}
 {{- if .IsPage -}}
 <script type="application/ld+json">

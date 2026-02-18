@@ -3,6 +3,10 @@ languageCode: en-us
 title: "Olox"
 # theme: PaperMod  # Disabled - using custom layouts
 
+# Show only finance content on home/listing pages
+mainSections:
+  - docs
+
 pagination:
   pagerSize: 10
 
@@ -38,14 +42,6 @@ minify:
 
 # Menu structure - Now data-driven from data/menu.yaml
 # Legacy menu kept for compatibility but header uses data/menu.yaml
-menu:
-  main:
-    - name: Home
-      url: /
-      weight: 1
-    - name: Docs
-      url: /docs/
-      weight: 2
 
 # URL Aliases / Redirects for posts to docs migration
 # Individual page redirects should be added in frontmatter
@@ -67,8 +63,12 @@ taxonomies:
 params:
   env: production
   title: "Olox"
-  description: "The Developer's Guide to Wealth — Insights on AI, Investing, Programming, and the Future of Money"
-  keywords: [Olox, Technology, Finance, AI, Machine Learning, Investing, Programming, Fintech, Crypto, Trading]
+  description: "Personal finance playbook: budgeting, saving, investing, taxes, retirement, and wealth building."
+  keywords: [Personal Finance, Investing, Budgeting, Saving, Taxes, Retirement, Stock Market, Debt Management, Insurance, Wealth Management]
+
+  # Limit home/list sections to finance docs
+  mainSections:
+    - docs
   
   # ============================================
   # SEO & AUTHOR INFO
@@ -96,6 +96,15 @@ params:
   
   # Google Analytics ID
   googleAnalyticsID: "G-GN1WQW6VP3"
+
+  # ============================================
+  # AdSense Configuration
+  # ============================================
+  adsense:
+    enabled: true
+    client: "pub-3351614345089974"  # Replace with your Publisher ID
+    article_slot: "1234567890"         # Replace with your In-article ad slot ID
+    sidebar_slot: "0987654321"         # Replace with your Sidebar ad slot ID
 
 # Privacy settings
 privacy:
